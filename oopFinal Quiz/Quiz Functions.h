@@ -1,130 +1,40 @@
 #pragma once
 
 
-string GetTime()
+// Get Question in List with index. For Show and To Answer Question.
+Question* GetQuestionByIndex(const list<Question*>* QList, int index = -1)
 {
-	time_t now;
-	time(&now);
-
-	char* dt = new char[26];
-
-	ctime_s(dt, 26, &now);
-
-	return string(dt);
-}
-
-int KeyCheck(int key, int choice, int min, int max)
-{
-	if (key == 72) {
-		choice--;
-		if (choice < min) choice = max;
-	}
-	else if (key == 77) {
-		choice--;
-		if (choice < min) choice = max;
-	}
-	else if (key == 75) {
-		choice++;
-		if (choice > max) choice = min;
-	}
-	else if (key == 80) {
-		choice++;
-		if (choice > max) choice = min;
-	}
-	else if (key == 119) {
-		choice--;
-		if (choice < min) choice = max;
-	}
-	else if (key == 97) {
-		choice++;
-		if (choice > max) choice = min;
-	}
-	else if (key == 115) {
-		choice++;
-		if (choice > max) choice = min;
-	}
-	else if (key == 100) {
-		choice--;
-		if (choice < min) choice = max;
-	}
-
-	return choice;
-}
-
-void SetColor(int color)
-{
-	SetConsoleTextAttribute(h, color);
-}
-
-void SaveQuizNameToDB(string dbName, string qName)
-{
-	ofstream file(dbName, ios::app);
-
-	if (!file.is_open() || !file)
+	if (index == -1 || (index >= QList->size()))
 	{
-		throw Exception("\nFile Achilmadi.", GetTime(), __FILE__, __LINE__);
+		return nullptr;
 	}
-
-	file << "--> " << qName << endl;
-
-	file.close();
-}
-
-auto GetQuizNamesFromDB(string dbName)
-{
-	ifstream file(dbName, ios::in);
-
-	if (!file.is_open())
+	else
 	{
-		throw Exception("\nFile Achilmadi.",
-			GetTime(), __FILE__, __LINE__);
-	}
-	vector<string> quizNames;
-
-	string index = "", q_name = "";
-
-	while (!file.eof())
-	{
-		file >> index;
-		if (!file.eof())
+		int iter = 0;
+		for (auto quest : *QList)
 		{
-			file >> q_name;
-			quizNames.push_back(q_name);
+			if (iter == index)
+			{
+				return (quest);
+			}
+			iter++;
 		}
 	}
-	file.close();
-	return quizNames;
+	return nullptr;
 }
 
-void ShowMenu_v(int Choose, const vector<string>& Vector)
+void ShuffleList(list<Question*>* QList)
 {
-	size_t end = Vector.size();
-
-	cout << endl << endl;
-	for (size_t sl = 0; sl < end; sl++)
+	try
 	{
-		if (Choose == sl)
-		{
-			SetConsoleTextAttribute(h, 3);
-			cout << "\n\t\t" << Vector[sl] << endl;
-			SetConsoleTextAttribute(h, dft);
-		}
-		else
-			cout << "\n\t\t" << Vector[sl] << endl;
+		random_device AppRandomGenerator;
+
+		mt19937 e(AppRandomGenerator());
+
+		shuffle(QList->begin(), QList->end(), e);
 	}
-}
-
-void ShowMenu_v(string Choose, const list<string>& List)
-{
-	for (auto str : List)
+	catch (...)
 	{
-		if (str == Choose)
-		{
-			SetConsoleTextAttribute(h, 3);
-			cout << "\t\t" << str << endl;
-			SetConsoleTextAttribute(h, dft);
-		}
-		else
-			cout << "\t\t" << str << endl;
+		return;
 	}
 }

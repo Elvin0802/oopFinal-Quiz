@@ -113,11 +113,10 @@ void Admin_Menu()
 					}
 					else if (key4 == 13)
 					{
-						Quiz* playingQuiz = new Quiz(quizzes.at(choose4));
+						shared_ptr<Quiz> playingQuiz(new Quiz(quizzes.at(choose4)));
 						playingQuiz->ReadAllQuestions();
-						cout << "\n\n\n\n\nPLaying\n\n\n";
-						system("pause");
 
+						
 						/*
 
 						play funksiyasi yaz. quiz pointer alsin. next , prev , submit orda olsun.
@@ -146,6 +145,34 @@ void Admin_Menu()
 	}
 
 }
+
+
+
+void Play(shared_ptr<Quiz> quiz)
+{
+	auto suallar = (*quiz).Get_Questions();
+	ShuffleList(suallar);
+
+	vector<string> cavablar;
+
+	int key5, choose5 = 0;
+	vector<string> menuForPlay{ " To Answer ", " Next " ," Previous " ," Submit " };
+
+	while (true)
+	{
+		system("cls");
+		ShowMenu_v(choose5, menuForPlay);
+	
+	
+	
+	
+	}
+
+
+
+
+}
+
 
 void Guest_Menu()
 {

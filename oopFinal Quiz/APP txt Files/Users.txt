@@ -1,3 +1,1 @@
 1. Elvin Siracli admin adminn __admin__
-2. Userem Qasimli guest guestt __guest__
-3. Azer Eliyev azer123 azer2345 __guest__

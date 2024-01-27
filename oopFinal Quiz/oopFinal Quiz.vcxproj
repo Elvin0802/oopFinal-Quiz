@@ -131,6 +131,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Registration System.h" />
+    <ClInclude Include="System Functions.h" />
     <ClInclude Include="User System.h" />
     <ClInclude Include="Exception Classes.h" />
     <ClInclude Include="Out of Classes.h" />

@@ -6,6 +6,8 @@
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <memory>
+#include <random>
 
 using namespace std;
 /*-----------------------------------------------------------------------*/
@@ -27,12 +29,13 @@ string AppQuizPlayers = "Quiz Players.txt";
 /*******  Application Headers  ********/
 
 #include "Exception Classes.h"
-#include "Quiz Functions.h"
+#include "System Functions.h"
 #include "User System.h"
 #include "Question Classes.h"
 #include "Quiz Classes.h"
 #include "Out of Classes.h"
 #include "Registration System.h"
+#include "Quiz Functions.h"
 /*-----------------------------------------*/
 
 //     throw InvalidArgumentException("\n Text ", GetTime(), __FILE__, __LINE__);  // Error atmaq uchun values

@@ -9,32 +9,56 @@ class Answers
 public:
 
 	Answers(string answer_1, string answer_2, string answer_3, string answer_4, string correct_Answer)
-		: _answer1(Set_Answer(answer_1)), _answer2(Set_Answer(answer_2))
-		, _answer3(Set_Answer(answer_3)), _answer4(Set_Answer(answer_4))
-		, _correctAnswer(Set_Answer(correct_Answer))
-	{}
+	{
+		this->Set_Answer1(answer_1);
+		this->Set_Answer2(answer_2);
+		this->Set_Answer3(answer_3);
+		this->Set_Answer4(answer_4);
+		this->Set_CorrectAnswer(correct_Answer);
+	}
 	Answers(const Answers& other)
 		: Answers(other._answer1, other._answer2, other._answer3, other._answer4, other._correctAnswer)
 	{}
 
 	Answers& operator=(const Answers& other)
 	{
-		this->_answer1 = Set_Answer(other._answer1);
-		this->_answer2 = Set_Answer(other._answer2);
-		this->_answer3 = Set_Answer(other._answer3);
-		this->_answer4 = Set_Answer(other._answer4);
-		this->_correctAnswer = Set_Answer(other._correctAnswer);
+		this->_answer1 = other._answer1;
+		this->_answer2 = other._answer2;
+		this->_answer3 = other._answer3;
+		this->_answer4 = other._answer4;
+		this->_correctAnswer = other._correctAnswer;
 
 		return (*this);
 	}
 
-	string& Set_Answer(string answer)
+	string& Check_Answer(string _answer)
 	{
-		if (answer != "" || answer != " ")
-			return answer;
+		if (_answer != "" || _answer != " ")
+			return _answer;
 
 		throw Exception("\nCavabi Duzgun Daxil Edin !\n",
 			GetTime(), __FILE__, __LINE__);
+	}
+
+	void Set_Answer1(string answer)
+	{
+		this->_answer1 = Check_Answer(answer);
+	}
+	void Set_Answer2(string answer)
+	{
+		this->_answer2 = Check_Answer(answer);
+	}
+	void Set_Answer3(string answer)
+	{
+		this->_answer3 = Check_Answer(answer);
+	}
+	void Set_Answer4(string answer)
+	{
+		this->_answer4 = Check_Answer(answer);
+	}
+	void Set_CorrectAnswer(string answer)
+	{
+		this->_correctAnswer = Check_Answer(answer);
 	}
 
 	string Get_Answer1() const { return this->_answer1; }
@@ -87,6 +111,7 @@ public:
 	}
 
 	Answers* Get_Answers() const { return this->_answers; }
+	string Get_CorrectAnswer() const { return (this->_answers->Get_CorrectAnswer()); }
 	string Get_Question() const { return this->_question; }
 
 	~Question()
