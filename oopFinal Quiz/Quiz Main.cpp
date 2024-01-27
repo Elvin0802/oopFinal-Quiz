@@ -11,23 +11,23 @@ using namespace std;
 /*-----------------------------------------------------------------------*/
 
 #define dft 15  // default value for change (set) Color
+HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE); // for change (set) Color
 
 /*--------->>  App File Destinations  <<-----------*/
 string txt = ".txt";
 string AppFolder = "APP txt Files/";
-string AppUsers = "APP Users.txt";
-string AppQuizNames = "APP Quiz Names.txt";
-string AppQuizPlayers = "APP Quiz Players.txt";
+string AppUsers = "Users.txt";
+string AppQuizNames = "Quiz Names.txt";
+string AppQuizPlayers = "Quiz Players.txt";
 /*--------------------------------------------------*/
 
 
-HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 
 
 /*******  Application Headers  ********/
 
-#include "Quiz Functions.h"
 #include "Exception Classes.h"
+#include "Quiz Functions.h"
 #include "User System.h"
 #include "Question Classes.h"
 #include "Quiz Classes.h"
@@ -35,7 +35,7 @@ HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 #include "Registration System.h"
 /*-----------------------------------------*/
 
-//     throw InvalidArgumentException("\n", GetTime(), __FILE__, "void User::Set_Username(string)", __LINE__);
+//     throw InvalidArgumentException("\n Text ", GetTime(), __FILE__, __LINE__);  // Error atmaq uchun values
 
 
 void main()

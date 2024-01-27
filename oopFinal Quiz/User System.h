@@ -12,12 +12,14 @@ class User
 
 public:
 
+	User(){}
 	User(string username, string password, string name, string surname, string access)
 	{
 		this->Set_Username(username);
 		this->Set_Password(password);
 		this->Set_Name(name);
 		this->Set_Surname(surname);
+		this->Set_Access(access);
 	}
 	User(const User& other)
 		: User(other._username, other._password, other._name, other._surname, other._access) {}
@@ -35,42 +37,39 @@ public:
 
 	void Set_Username(string username)
 	{
-		if (username.length() < 6)
-			throw InvalidArgumentException("\nUsername Herf Sayi 6-dan Chox Olmalidir.",
-				GetTime(), __FILE__, __LINE__);
-		if (!(int(username.front()) >= 65 && int(username.front()) <= 90))
-			throw InvalidArgumentException("\nUsername-in Ilk Herfi Boyuk Olmalidir.",
+		if (username.length() < 3)
+			throw InvalidArgumentException("\nUsername Herf Sayi 3-dan Chox Olmalidir.",
 				GetTime(), __FILE__, __LINE__);
 
 		this->_username = username;
 	}
 	void Set_Password(string password)
 	{
-		if (password.length() < 6)
-			throw InvalidArgumentException("\nPassword Herf Sayi 6-dan Chox Olmalidir.",
+		if (password.length() < 3)
+			throw InvalidArgumentException("\nPassword Herf Sayi 3-dan Chox Olmalidir.",
 				GetTime(), __FILE__, __LINE__);
 
 		this->_password = password;
 	}
 	void Set_Name(string name)
 	{
-		if (name.length() < 4)
-			throw InvalidArgumentException("\nAdin Herf Sayi 4-dan Chox Olmalidir.",
+		if (name.length() < 2)
+			throw InvalidArgumentException("\nAdin Herf Sayi 2-dan Chox Olmalidir.",
 				GetTime(), __FILE__, __LINE__);
 
 		this->_name = name;
 	}
 	void Set_Surname(string surname)
 	{
-		if (surname.length() < 4)
-			throw InvalidArgumentException("\nSoyadin Herf Sayi 4-dan Chox Olmalidir.",
+		if (surname.length() < 2)
+			throw InvalidArgumentException("\nSoyadin Herf Sayi 2-dan Chox Olmalidir.",
 				GetTime(), __FILE__, __LINE__);
 
 		this->_surname = surname;
 	}
 	void Set_Access(string access)
 	{
-		if (access == "a" || access == "A")
+		if (access == "__admin__")
 			this->_access = "__admin__";
 		else
 			this->_access = "__guest__";
@@ -98,10 +97,15 @@ class UserDatabase
 {
 	list<User*> _users;
 	size_t _endUser = 0;
+	string _fileName = "";
 
 public:
 
 	UserDatabase() {}
+	UserDatabase(string fileName)
+	{
+		this->SetFileName(fileName);
+	}
 	UserDatabase(const UserDatabase& other)
 	{
 		for (auto u : other._users)
@@ -137,6 +141,16 @@ public:
 		_users.clear();
 	}
 
+	void SetFileName(string file)
+	{
+		this->_fileName = file;
+	}
+	
+	string GetFileName()const
+	{
+		return this->_fileName;
+	}
+
 	User& getUserByUsername(string username)
 	{
 		if (_users.size() == 0) {
@@ -170,7 +184,7 @@ public:
 	size_t Get_User_Count() const { return _users.size(); }
 	size_t Get_End_User() const { return _endUser; }
 
-	bool Check_User(string username)
+	bool Check_User(string username)const
 	{
 		for (auto& us : _users)
 			if (us->Get_Username() == username)
@@ -178,7 +192,7 @@ public:
 
 		return false;
 	}
-	bool Check_User(string username, string password)
+	bool Check_User(string username, string password)const
 	{
 		for (auto& us : _users)
 		{
@@ -193,9 +207,9 @@ public:
 		return false;
 	}
 
-	void ReadAllUsers(string dest)
+	void ReadAllUsers()
 	{
-		ifstream file(dest, ios::in);
+		ifstream file(_fileName, ios::in);
 
 		if (!file.is_open())
 		{
@@ -222,9 +236,9 @@ public:
 		file.close();
 	}
 
-	void WriteEndUser(string dest)
+	void WriteEndUser()
 	{
-		ofstream file(dest, ios::app);
+		ofstream file(_fileName, ios::app);
 
 		if (!file.is_open() || !file)
 		{
@@ -232,23 +246,23 @@ public:
 				GetTime(), __FILE__, __LINE__);
 		}
 
-		auto us = _users.end();
+		auto us = _users.back();
 
-		if (*us != nullptr)
+		if (us != nullptr)
 		{
-			file << (_endUser++) << ". "
-				<< (*us)->Get_Name() << " "
-				<< (*us)->Get_Surname() << " "
-				<< (*us)->Get_Username() << " "
-				<< (*us)->Get_Password() << " "
-				<< (*us)->Get_Access() << "\n";
+			file << (++_endUser) << ". "
+				<< (us)->Get_Name() << " "
+				<< (us)->Get_Surname() << " "
+				<< (us)->Get_Username() << " "
+				<< (us)->Get_Password() << " "
+				<< (us)->Get_Access() << "\n";
 		}
 		file.close();
 	}
 
-	void WriteAllUsers(string dest)
+	void WriteAllUsers()const
 	{
-		ofstream file(dest, ios::out);
+		ofstream file(_fileName, ios::out);
 
 		if (!file.is_open() || !file)
 		{

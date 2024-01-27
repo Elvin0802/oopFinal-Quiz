@@ -21,7 +21,6 @@ void Admin_Menu()
 		{
 			if (choose2 == 0)
 			{
-				cin.ignore();
 				string quiz_name;
 
 				SetColor(8);
@@ -49,10 +48,10 @@ void Admin_Menu()
 						if (choose3 == 0)
 						{
 							string question = "", answer1 = "", answer2 = "", answer3 = "", answer4 = "";
-							string correctAnswer = ""; size_t qScore = 0;
+							string correctAnswer = "";
 
 							system("cls"); SetColor(7);
-							cout << "\n\n\t\t---)  Sual  > " << newQuiz->Get_QuestionCount() + 1 << " < \n";
+							cout << "\n\n\t\t---)  Sual  > " << (newQuiz->Get_QuestionCount() + 1) << " < \n";
 							SetColor(dft);
 
 							cout << "\n---  Suali Daxil Edin :: "; getline(cin, question);
@@ -76,11 +75,9 @@ void Admin_Menu()
 								}
 							} while (correctAnswer == "");
 
-							cout << "\n---  Bu Sualin Xal-ini Daxil Edin ( 0 < xal < 1000 ) :: "; cin >> qScore;
-
 							Answers* answers = new Answers(answer1, answer2, answer3, answer4, correctAnswer);
 
-							newQuiz->AddQuestion(new Question(question, answers, qScore));
+							newQuiz->AddQuestion(new Question(question, answers));
 
 							delete answers;
 						}
@@ -162,13 +159,13 @@ string Login_Menu()
 	int key1, choose1 = 0;
 	vector<string> menuForLogin{ " Sign In "," Sign Up " ," Exit " };
 
+	shared_ptr<UserDatabase> appUserDB(new UserDatabase(AppFolder + AppUsers));
+	appUserDB->ReadAllUsers();
+
 	while (true)
 	{
 		system("cls");
 		ShowMenu_v(choose1, menuForLogin);
-
-		UserDatabase* appUserDB = new UserDatabase();
-		appUserDB->ReadAllUsers(string(AppFolder + AppUsers));
 
 		key1 = _getch();
 		if (key1 > 96)
@@ -185,7 +182,6 @@ string Login_Menu()
 				{
 					string un, ps;// username, password
 
-					cin.ignore();
 					SetConsoleTextAttribute(h, 6);
 					cout << "\n\t\tUsername Daxil Edin : "; getline(cin, un);
 					cout << "\n\t\tPassword Daxil Edin : "; getline(cin, ps);
@@ -205,16 +201,13 @@ string Login_Menu()
 				{
 					string lvl, n, sn, un, ps;// level, name, surname, username, password
 
-					cin.ignore();
 					SetConsoleTextAttribute(h, 6);
-					cout << "\n\t\t\tSeviyye : Admin = a | Guest = g\n\tSeviyye Sechin : "; getline(cin, lvl);
+					cout << "\n\t\t\tSeviyye : Admin = a | Guest = g\n\n\t\tSeviyye Sechin : "; getline(cin, lvl);
 					cout << "\n\t\tAdinizi Daxil Edin : "; getline(cin, n);
 					cout << "\n\t\tSoyadinizi Daxil Edin : "; getline(cin, sn);
 					cout << "\n\t\tUsername Daxil Edin : "; getline(cin, un);
 					cout << "\n\t\tPassword Daxil Edin : "; getline(cin, ps);
 					SetConsoleTextAttribute(h, dft);
-
-					(lvl == "a" || lvl == "A") ? lvl = "__admin__" : lvl = "__guest__";
 
 					if (appUserDB->Check_User(un))
 					{
@@ -223,9 +216,11 @@ string Login_Menu()
 					}
 					else
 					{
+						if (lvl == "a") lvl = "__admin__";
+
 						appUserDB->addUser(new User(un, ps, n, sn, lvl));
 
-						appUserDB->WriteEndUser(AppUsers);
+						appUserDB->WriteEndUser();
 
 						SetConsoleTextAttribute(h, 12);
 						cout << "\n\tUser Elave Olundu.\n\n"; system("pause");
@@ -234,7 +229,7 @@ string Login_Menu()
 				}
 				else if (choose1 == 2) // Exit
 				{
-					appUserDB->WriteAllUsers(AppUsers);
+					appUserDB->WriteAllUsers();
 					return ("__break__");
 				}
 			}

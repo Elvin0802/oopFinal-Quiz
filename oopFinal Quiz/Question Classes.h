@@ -50,15 +50,13 @@ class Question
 {
 	string _question = "";
 	Answers* _answers = nullptr;
-	size_t _score = 0;
 
 public:
 
-	Question(string question, const Answers* answers, size_t score)
+	Question(string question, const Answers* answers)
 	{
 		this->Set_Answers(answers);
 		this->Set_Question(question);
-		this->Set_Score(score);
 	}
 
 	Question(const Question& other)
@@ -87,20 +85,9 @@ public:
 		if (_answers != nullptr && answers != nullptr) delete _answers;
 		this->_answers = new Answers(*answers);
 	}
-	void Set_Score(size_t score)
-	{
-		if (score >= 0 && score <= 1000)
-		{
-			this->_score = score;
-			return;
-		}
-		throw Exception("\nXal 0 dan Boyuk ve 1000 den Kicik Olmalidir !\n",
-			GetTime(), __FILE__, __LINE__);
-	}
 
 	Answers* Get_Answers() const { return this->_answers; }
 	string Get_Question() const { return this->_question; }
-	size_t Get_Score() const { return this->_score; }
 
 	~Question()
 	{
@@ -110,6 +97,5 @@ public:
 			this->_answers = nullptr;
 		}
 		this->_question = "";
-		this->_score = 0;
 	}
 };

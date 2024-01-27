@@ -85,7 +85,6 @@ public:
 
 		string index = "";
 		string question = "";
-		string score = "";
 		string a1 = "", a2 = "", a3 = "", a4 = "";
 		string correctA = "";
 
@@ -95,11 +94,11 @@ public:
 
 			if (!file.eof())
 			{
-				file >> question >> score >> a1 >> a2 >> a3 >> a4 >> correctA;
+				file >> question >> a1 >> a2 >> a3 >> a4 >> correctA;
 
 				Answers* answers = new Answers(a1, a2, a3, a4, correctA);
 
-				_questions->push_back(new Question(question, answers, stoi(score)));
+				_questions->push_back(new Question(question, answers));
 				delete answers;
 			}
 		}
@@ -124,7 +123,6 @@ public:
 
 			file << _questions->size() << ". "
 				<< (*us)->Get_Question() << " "
-				<< (*us)->Get_Score() << " "
 				<< answers->Get_Answer1() << " "
 				<< answers->Get_Answer2() << " "
 				<< answers->Get_Answer3() << " "
@@ -153,7 +151,6 @@ public:
 
 				file << index << ". "
 					<< us->Get_Question() << " "
-					<< us->Get_Score() << " "
 					<< answers->Get_Answer1() << " "
 					<< answers->Get_Answer2() << " "
 					<< answers->Get_Answer3() << " "

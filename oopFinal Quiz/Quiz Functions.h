@@ -62,8 +62,7 @@ void SaveQuizNameToDB(string dbName, string qName)
 
 	if (!file.is_open() || !file)
 	{
-		throw Exception("\nFile Achilmadi.",
-			GetTime(), __FILE__, __LINE__);
+		throw Exception("\nFile Achilmadi.", GetTime(), __FILE__, __LINE__);
 	}
 
 	file << "--> " << qName << endl;
@@ -100,16 +99,18 @@ auto GetQuizNamesFromDB(string dbName)
 void ShowMenu_v(int Choose, const vector<string>& Vector)
 {
 	size_t end = Vector.size();
+
+	cout << endl << endl;
 	for (size_t sl = 0; sl < end; sl++)
 	{
 		if (Choose == sl)
 		{
 			SetConsoleTextAttribute(h, 3);
-			cout << "\t\t" << Vector[sl] << endl;
+			cout << "\n\t\t" << Vector[sl] << endl;
 			SetConsoleTextAttribute(h, dft);
 		}
 		else
-			cout << "\t\t" << Vector[sl] << endl;
+			cout << "\n\t\t" << Vector[sl] << endl;
 	}
 }
 
