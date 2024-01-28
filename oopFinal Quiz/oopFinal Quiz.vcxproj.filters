@@ -23,9 +23,6 @@
     <ClInclude Include="Quiz Functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Out of Classes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Exception Classes.h">
       <Filter>Header Files</Filter>
     </ClInclude>

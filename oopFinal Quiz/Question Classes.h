@@ -103,6 +103,8 @@ public:
 				GetTime(), __FILE__, __LINE__);
 
 		this->_question = question;
+
+		if (this->_question.back() != '?') this->_question += " ?";
 	}
 	void Set_Answers(const Answers* answers)
 	{

@@ -219,7 +219,7 @@ public:
 
 		string index = "", name = "", surname = "", username = "", password = "", level = "";
 
-		_users.clear(); _endUser = 0;
+		this->Delete_AllUsers(); _endUser = 0;
 
 		while (!file.eof())
 		{
@@ -290,4 +290,118 @@ public:
 	{
 		Delete_AllUsers();
 	}
+};
+
+
+class Player
+{
+	string* _username = nullptr; // player username from user database
+	int* _totalCount = nullptr; // verilen cavablarin cemi sayi
+	int* _correctCount = nullptr; // duzgun cavablarin sayi
+	int* _wrongCount = nullptr; // sehv cavablarin sayi
+	int* _emptyCount = nullptr; // bosh (cavab verilmeyen) cavablarin sayi
+
+public:
+
+	Player(string _username, int _correctCount, int _wrongCount, int _emptyCount)
+	{
+		this->Set_Username(_username);
+		this->Set_CorrectCount(_correctCount);
+		this->Set_EmptyCount(_emptyCount);
+		this->Set_WrongCount(_wrongCount);
+		this->Set_TotalCount();
+	}
+	Player(const Player& player)
+		: Player(*(player._username), *(player._correctCount), *(player._wrongCount), *(player._emptyCount))
+	{}
+	~Player()
+	{
+		if (this->_username != nullptr)
+		{
+			delete this->_username;
+			this->_username = nullptr;
+		}
+		if (this->_totalCount != nullptr)
+		{
+			delete this->_totalCount;
+			this->_totalCount = nullptr;
+		}
+		if (this->_correctCount != nullptr)
+		{
+			delete this->_correctCount;
+			this->_correctCount = nullptr;
+		}
+		if (this->_wrongCount != nullptr)
+		{
+			delete this->_wrongCount;
+			this->_wrongCount = nullptr;
+		}
+		if (this->_emptyCount != nullptr)
+		{
+			delete this->_emptyCount;
+			this->_emptyCount = nullptr;
+		}
+	}
+
+	Player& operator=(const Player& player)
+	{
+		this->Set_Username(*(player._username));
+		this->Set_CorrectCount(*(player._correctCount));
+		this->Set_EmptyCount(*(player._emptyCount));
+		this->Set_WrongCount(*(player._wrongCount));
+		this->Set_TotalCount();
+	}
+
+	void Set_CorrectCount(int correctCount)
+	{
+		if (correctCount < 0)
+			throw InvalidArgumentException("\n Count Menfi Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+
+		if (this->_correctCount != nullptr) delete this->_correctCount;
+
+		this->_correctCount = new int(correctCount);
+	}
+	void Set_WrongCount(int wrongCount)
+	{
+		if (wrongCount < 0)
+			throw InvalidArgumentException("\n Count Menfi Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+
+		if (this->_wrongCount != nullptr) delete this->_wrongCount;
+
+		this->_wrongCount = new int(wrongCount);
+	}
+	void Set_EmptyCount(int emptyCount)
+	{
+		if (emptyCount < 0)
+			throw InvalidArgumentException("\n Count Menfi Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+
+		if (this->_emptyCount != nullptr) delete this->_emptyCount;
+
+		this->_emptyCount = new int(emptyCount);
+	}
+	void Set_TotalCount()
+	{
+		if(_correctCount == nullptr || _wrongCount == nullptr || _emptyCount == nullptr)
+			throw InvalidArgumentException("\n Any Count is Nullptr ! ", GetTime(), __FILE__, __LINE__);
+
+		if (this->_totalCount != nullptr) delete this->_totalCount;
+
+		this->_totalCount = new int((*_correctCount) + (*_wrongCount) + (*_emptyCount));
+	}
+	void Set_Username(string username)
+	{
+		if (username.length() < 3)
+			throw InvalidArgumentException("\n Len 4-den Kichik Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+
+		if (this->_username != nullptr) delete this->_username;
+
+		this->_username = new string(username);
+	}
+
+	int Get_CorrectCount() { return *_totalCount; }
+	int Get_WrongCount() { return *_correctCount; }
+	int Get_EmptyCount() { return *_wrongCount; }
+	int Get_TotalCount() { return *_emptyCount; }
+	string Get_Username() { return *_username; }
+
 };

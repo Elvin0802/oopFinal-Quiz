@@ -134,7 +134,6 @@
     <ClInclude Include="System Functions.h" />
     <ClInclude Include="User System.h" />
     <ClInclude Include="Exception Classes.h" />
-    <ClInclude Include="Out of Classes.h" />
     <ClInclude Include="Question Classes.h" />
     <ClInclude Include="Quiz Classes.h" />
     <ClInclude Include="Quiz Functions.h" />

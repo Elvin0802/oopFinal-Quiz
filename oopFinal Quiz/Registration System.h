@@ -116,7 +116,7 @@ void Admin_Menu()
 						shared_ptr<Quiz> playingQuiz(new Quiz(quizzes.at(choose4)));
 						playingQuiz->ReadAllQuestions();
 
-						
+
 						/*
 
 						play funksiyasi yaz. quiz pointer alsin. next , prev , submit orda olsun.
@@ -137,7 +137,7 @@ void Admin_Menu()
 
 				//vector ilk 10 show
 			}
-			else if (choose2 == 3)
+			else if (choose2 == 4)
 			{
 				// exit
 			}
@@ -155,17 +155,56 @@ void Play(shared_ptr<Quiz> quiz)
 
 	vector<string> cavablar;
 
-	int key5, choose5 = 0;
+	int key5, choose5 = 0;  // for show menu
+	size_t q_index = 0; //for show question 
+	size_t q_count = suallar->size();  // for update index
+
 	vector<string> menuForPlay{ " To Answer ", " Next " ," Previous " ," Submit " };
+
+	Question* sual = nullptr;
 
 	while (true)
 	{
-		system("cls");
+		system("cls"); SetColor(7);
+
+		cout << "\n\n\t\t~~~~  Sual  > " << (q_index + 1) << " < \n";
+		SetColor(9);
+
+		sual = GetQuestionByIndex(suallar, q_index);
+
+		//if (sual == nullptr && q_index < suallar->size()) { q_index++; continue; }
+
+		cout << "\t\t" << sual->Get_Question() << endl;
+		SetColor(dft);
 		ShowMenu_v(choose5, menuForPlay);
-	
-	
-	
-	
+
+		key5 = _getch();
+		if (key5 > 96)
+		{
+			if (key5 == 224)key5 = _getch();
+			choose5 = KeyCheck(key5, choose5, 0, (menuForPlay.size() - 1));
+		}
+		else if (key5 == 13)
+		{
+			if (choose5 == 0)
+			{
+
+			}
+			else if (choose5 == 1)
+			{
+				if (q_index < (q_count - 1)) q_index++;
+			}
+			else if (choose5 == 2)
+			{
+				if (q_index > 0) q_index--;
+			}
+			else if (choose5 == 3)
+			{
+
+			}
+		}
+
+
 	}
 
 
