@@ -120,18 +120,24 @@ void ShowMenu_v(int Choose, const vector<string>& Vector)
 	}
 }
 
-// Show List Menu Elements with Colored Choose.
-void ShowMenu_v(string Choose, const list<string>& List)
-{
-	for (auto str : List)
-	{
-		if (str == Choose)
-		{
-			SetConsoleTextAttribute(h, 3);
-			cout << "\t\t" << str << endl;
-			SetConsoleTextAttribute(h, dft);
-		}
-		else
-			cout << "\t\t" << str << endl;
-	}
-}
+
+
+
+//		Lazimsizdi.  Silersen.
+
+// 
+//// Show List Menu Elements with Colored Choose.
+//void ShowMenu_v(string Choose, const list<string>& List)
+//{
+//	for (auto str : List)
+//	{
+//		if (str == Choose)
+//		{
+//			SetConsoleTextAttribute(h, 3);
+//			cout << "\t\t" << str << endl;
+//			SetConsoleTextAttribute(h, dft);
+//		}
+//		else
+//			cout << "\t\t" << str << endl;
+//	}
+//}

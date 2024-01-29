@@ -88,6 +88,8 @@ public:
 		string a1 = "", a2 = "", a3 = "", a4 = "";
 		string correctA = "";
 
+		this->DeleteAllQuestions();
+
 		while (!file.eof())
 		{
 			file >> index;

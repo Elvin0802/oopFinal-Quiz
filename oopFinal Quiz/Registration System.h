@@ -151,9 +151,9 @@ void Admin_Menu()
 void Play(shared_ptr<Quiz> quiz)
 {
 	auto suallar = (*quiz).Get_Questions();
-	ShuffleList(suallar);
+	Shuffle(suallar);
 
-	vector<string> cavablar;
+	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
 	int key5, choose5 = 0;  // for show menu
 	size_t q_index = 0; //for show question 
@@ -165,16 +165,16 @@ void Play(shared_ptr<Quiz> quiz)
 
 	while (true)
 	{
-		system("cls"); SetColor(7);
+		system("cls"); SetColor(14);
 
 		cout << "\n\n\t\t~~~~  Sual  > " << (q_index + 1) << " < \n";
-		SetColor(9);
+		SetColor(10);
 
 		sual = GetQuestionByIndex(suallar, q_index);
 
-		//if (sual == nullptr && q_index < suallar->size()) { q_index++; continue; }
+		if (sual == nullptr && q_index < suallar->size()) { q_index++; continue; }
 
-		cout << "\t\t" << sual->Get_Question() << endl;
+		cout << "\n\t\t" << sual->Get_Question() << endl;
 		SetColor(dft);
 		ShowMenu_v(choose5, menuForPlay);
 
@@ -188,7 +188,47 @@ void Play(shared_ptr<Quiz> quiz)
 		{
 			if (choose5 == 0)
 			{
+				system("cls");	SetColor(10);
+				cout << "\n\n\t\t" << sual->Get_Question() << endl;	SetColor(dft);
 
+				shared_ptr<Answers> A(sual->Get_Answers()); // hazirki sualin cavablari
+				vector<string> variantlar{ (*A).Get_Answer1(), (*A).Get_Answer2(),
+					(*A).Get_Answer3(),(*A).Get_Answer4() };
+				
+				Shuffle(variantlar);
+				int key6, choose6 = 0;
+
+				while (true)
+				{
+					if (choose6 == 0) SetColor(2);
+					cout << "\n\tA ) " << (variantlar)[0]; SetColor(8);
+					if (choose6 == 1) SetColor(2);
+					cout << "\n\tB ) " << (variantlar)[1]; SetColor(8);
+					if (choose6 == 2) SetColor(2);
+					cout << "\n\tC ) " << (variantlar)[2]; SetColor(8);
+					if (choose6 == 3) SetColor(2);
+					cout << "\n\tD ) " << (variantlar)[3]; SetColor(dft);
+
+					key6 = _getch();
+					if (key6 > 96)
+					{
+						if (key6 == 224)key6 = _getch();
+						choose6 = KeyCheck(key6, choose6, 0, (variantlar.size() - 1));
+					}
+					else if (key6 == 13)
+					{
+						if (choose6 == 0)
+							cavablar[q_index] = variantlar[0];
+						else if (choose6 == 1)
+							cavablar[q_index] = variantlar[1];
+						else if (choose6 == 2)
+							cavablar[q_index] = variantlar[2];
+						else if (choose6 == 3)
+							cavablar[q_index] = variantlar[3];
+						
+						break;
+					}
+				}
 			}
 			else if (choose5 == 1)
 			{
@@ -200,16 +240,10 @@ void Play(shared_ptr<Quiz> quiz)
 			}
 			else if (choose5 == 3)
 			{
-
+				// submit , delete question* sual;
 			}
 		}
-
-
 	}
-
-
-
-
 }
 
 

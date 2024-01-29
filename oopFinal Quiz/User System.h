@@ -8,7 +8,6 @@ class User
 	string _username = "";
 	string _password = "";
 	string _access = "";
-	size_t _totalScore = 0;
 
 public:
 
@@ -301,6 +300,8 @@ class Player
 	int* _wrongCount = nullptr; // sehv cavablarin sayi
 	int* _emptyCount = nullptr; // bosh (cavab verilmeyen) cavablarin sayi
 
+	// yeni fieldler elave ele - quiz name - hansi quiz uzre oldugu .
+
 public:
 
 	Player(string _username, int _correctCount, int _wrongCount, int _emptyCount)
@@ -404,4 +405,194 @@ public:
 	int Get_TotalCount() { return *_emptyCount; }
 	string Get_Username() { return *_username; }
 
+};
+
+
+class PlayerDatabase
+{
+	list<Player*> _players;
+	size_t _endPlayer = 0;
+	string _fileName = "";
+
+public:
+
+	PlayerDatabase() {}
+	PlayerDatabase(string fileName)
+	{
+		this->SetFileName(fileName);
+	}
+	PlayerDatabase(const PlayerDatabase& other)
+	{
+		for (auto u : other._players)
+			_players.push_back(new Player(*u));
+
+		_endPlayer = other._endPlayer;
+	}
+
+	PlayerDatabase& operator=(const PlayerDatabase& other)
+	{
+		if (_players.size() > 0)
+			Delete_AllUsers();
+
+		for (auto u : other._players)
+			_players.push_back(new Player(*u));
+
+		_endPlayer = other._endPlayer;
+		return (*this);
+	}
+
+	void addPlayer(const Player* player)
+	{
+		_players.push_back(const_cast<Player*>(player));
+	}
+
+	void Delete_AllPlayers()
+	{
+		for (auto player : _players)
+		{
+			delete player;
+			player = nullptr;
+		}
+		_players.clear();
+	}
+
+	void SetFileName(string file)
+	{
+		this->_fileName = file;
+	}
+
+	string GetFileName()const
+	{
+		return this->_fileName;
+	}
+
+	Player& getPlayerByUsername(string username)
+	{
+		if (_players.size() == 0) {
+			throw Exception("\nOyunchu Sayi 0 dir.", GetTime(), __FILE__, __LINE__);
+		}
+
+		for (auto& us : _players)
+		{
+			if (us->Get_Username() == username)
+			{
+				return *us;
+			}
+		}
+		throw Exception("\nOyunchu Tapilmadi.", GetTime(), __FILE__, __LINE__);
+	}
+	void updatePlayer(Player& oldUser, const Player& newUser)
+	{
+		for (auto& us : _players)
+		{
+			if (us->Get_Username() == oldUser.Get_Username())
+			{
+				*(us) = newUser;
+				return;
+			}
+		}
+		throw Exception("\nOyunchu Tapilmadi.",
+			GetTime(), __FILE__, __LINE__);
+	}
+
+	auto Get_Players() const { return _players; }
+	size_t Get_Player_Count() const { return _players.size(); }
+	size_t Get_End_Player() const { return _endPlayer; }
+
+	bool Check_Player(string username)const
+	{
+		for (auto& us : _players)
+			if (us->Get_Username() == username)
+				return true;
+
+		return false;
+	}
+
+	/*
+
+	void ReadAllPlayers()
+	{
+		ifstream file(_fileName, ios::in);
+
+		if (!file.is_open())
+		{
+			throw Exception("\nFile Achilmadi.",
+				GetTime(), __FILE__, __LINE__);
+		}
+
+		string index = "", username = "", total = "", correct = "", wrong = "", empty = "";
+
+		this->Delete_AllPlayers(); _endPlayer = 0;
+
+		while (!file.eof())
+		{
+			file >> index;
+
+			if (!file.eof())
+			{
+				_endPlayer++;
+				file >> username >> total >> username >> correct >> wrong >> empty;
+
+				_players.push_back(new Player(,));
+			}
+		}
+		file.close();
+	}
+
+	void WriteEndPlayer()
+	{
+		ofstream file(_fileName, ios::app);
+
+		if (!file.is_open() || !file)
+		{
+			throw Exception("\nFile Achilmadi.",
+				GetTime(), __FILE__, __LINE__);
+		}
+
+		auto us = _users.back();
+
+		if (us != nullptr)
+		{
+			file << (++_endPlayer) << ". "
+				<< (us)->Get_Name() << " "
+				<< (us)->Get_Surname() << " "
+				<< (us)->Get_Username() << " "
+				<< (us)->Get_Password() << " "
+				<< (us)->Get_Access() << "\n";
+		}
+		file.close();
+	}
+
+	void WriteAllPlayers()const
+	{
+		ofstream file(_fileName, ios::out);
+
+		if (!file.is_open() || !file)
+		{
+			throw Exception("\nFile Achilmadi.",
+				GetTime(), __FILE__, __LINE__);
+		}
+
+		size_t index = 1;
+		for (auto& us : _users)
+		{
+			if (us != nullptr)
+			{
+				file << (index++) << ". "
+					<< us->Get_Name() << " "
+					<< us->Get_Surname() << " "
+					<< us->Get_Username() << " "
+					<< us->Get_Password() << " "
+					<< us->Get_Access() << "\n";
+			}
+		}
+		file.close();
+	}
+
+	*/
+
+	~PlayerDatabase()
+	{
+		Delete_AllPlayers();
+	}
 };

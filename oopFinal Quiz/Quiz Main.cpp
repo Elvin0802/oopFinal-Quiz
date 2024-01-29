@@ -33,7 +33,6 @@ string AppQuizPlayers = "Quiz Players.txt";
 #include "User System.h"
 #include "Question Classes.h"
 #include "Quiz Classes.h"
-#include "Out of Classes.h"
 #include "Registration System.h"
 #include "Quiz Functions.h"
 /*-----------------------------------------*/
@@ -53,9 +52,9 @@ void main()
 		}
 		catch (exception& except)
 		{
-			SetConsoleTextAttribute(h, 4);
+			SetColor(4);
 			cout << except.what();
-			SetConsoleTextAttribute(h, dft);
+			SetColor(dft);
 			system("pause");
 		}
 		//------------------------------------------------------
@@ -76,9 +75,9 @@ void main()
 		}
 		catch (exception& except)
 		{
-			SetConsoleTextAttribute(h, 4);
+			SetColor(4);
 			cout << except.what();
-			SetConsoleTextAttribute(h, dft);
+			SetColor(dft);
 			system("pause");
 		}
 	}

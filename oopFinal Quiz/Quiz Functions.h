@@ -23,7 +23,9 @@ Question* GetQuestionByIndex(const list<Question*>* QList, int index = -1)
 	return nullptr;
 }
 
-void ShuffleList(list<Question*>* QList)
+// Shuffle with random engine ( only work with Collection )
+template<typename T>
+void Shuffle(T Collection)
 {
 	try
 	{
@@ -31,7 +33,7 @@ void ShuffleList(list<Question*>* QList)
 
 		mt19937 e(AppRandomGenerator());
 
-		shuffle(QList->begin(), QList->end(), e);
+		shuffle(Collection->begin(), Collection->end(), e);
 	}
 	catch (...)
 	{
