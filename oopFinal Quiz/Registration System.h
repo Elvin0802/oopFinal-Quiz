@@ -1,6 +1,105 @@
 #pragma once
 
 
+void Play(shared_ptr<Quiz> quiz)
+{
+	auto suallar = (*quiz).Get_Questions();
+	//Shuffle(suallar);
+
+	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
+
+	int key5, choose5 = 0;  // for show menu
+	size_t q_index = 0; //for show question 
+	size_t q_count = suallar->size();  // for update index
+
+	vector<string> menuForPlay{ " To Answer ", " Next ", " Previous ", " Submit " };
+
+	Question* sual = nullptr;
+
+	while (true)
+	{
+		system("cls"); SetColor(14);
+
+		cout << "\n\n\t\t~~~~  Sual  > " << (q_index + 1) << " < \n";
+		SetColor(10);
+
+		sual = GetQuestionByIndex(suallar, q_index);
+
+		if (sual == nullptr && q_index < suallar->size()) { q_index++; continue; }
+
+		cout << "\n\t\t" << sual->Get_Question() << endl;
+		SetColor(dft);
+		ShowMenu_v(choose5, menuForPlay);
+
+		key5 = _getch();
+		if (key5 > 96)
+		{
+			if (key5 == 224)key5 = _getch();
+			choose5 = KeyCheck(key5, choose5, 0, (menuForPlay.size() - 1));
+		}
+		else if (key5 == 13)
+		{
+			if (choose5 == 0)
+			{
+				system("cls");	SetColor(10);
+				cout << "\n\n\t\t" << sual->Get_Question() << endl;	SetColor(dft);
+
+				shared_ptr<Answers> A(sual->Get_Answers()); // hazirki sualin cavablari
+				vector<string> variantlar{ (*A).Get_Answer1(), (*A).Get_Answer2(),
+					(*A).Get_Answer3(), (*A).Get_Answer4() };
+
+				//Shuffle(variantlar);
+				int key6, choose6 = 0;
+
+				while (true)
+				{
+					if (choose6 == 0) SetColor(2);
+					cout << "\n\tA ) " << (variantlar)[0]; SetColor(8);
+					if (choose6 == 1) SetColor(2);
+					cout << "\n\tB ) " << (variantlar)[1]; SetColor(8);
+					if (choose6 == 2) SetColor(2);
+					cout << "\n\tC ) " << (variantlar)[2]; SetColor(8);
+					if (choose6 == 3) SetColor(2);
+					cout << "\n\tD ) " << (variantlar)[3]; SetColor(dft);
+
+					key6 = _getch();
+					if (key6 > 96)
+					{
+						if (key6 == 224)key6 = _getch();
+						choose6 = KeyCheck(key6, choose6, 0, (variantlar.size() - 1));
+					}
+					else if (key6 == 13)
+					{
+						if (choose6 == 0)
+							cavablar[q_index] = variantlar[0];
+						else if (choose6 == 1)
+							cavablar[q_index] = variantlar[1];
+						else if (choose6 == 2)
+							cavablar[q_index] = variantlar[2];
+						else if (choose6 == 3)
+							cavablar[q_index] = variantlar[3];
+
+						break;
+					}
+				}
+			}
+			else if (choose5 == 1)
+			{
+				if (q_index < (q_count - 1)) q_index++;
+			}
+			else if (choose5 == 2)
+			{
+				if (q_index > 0) q_index--;
+			}
+			else if (choose5 == 3)
+			{
+				// submit , delete question* sual;
+			}
+		}
+	}
+}
+
+
 void Admin_Menu()
 {
 	int key2, choose2 = 0;
@@ -51,7 +150,7 @@ void Admin_Menu()
 							string correctAnswer = "";
 
 							system("cls"); SetColor(7);
-							cout << "\n\n\t\t---)  Sual  > " << (newQuiz->Get_QuestionCount() + 1) << " < \n";
+							cout << "\n\n\t\t\t--- Sual  > " << (newQuiz->Get_QuestionCount() + 1) << " < \n";
 							SetColor(dft);
 
 							cout << "\n---  Suali Daxil Edin :: "; getline(cin, question);
@@ -116,6 +215,10 @@ void Admin_Menu()
 						shared_ptr<Quiz> playingQuiz(new Quiz(quizzes.at(choose4)));
 						playingQuiz->ReadAllQuestions();
 
+						Play(playingQuiz);
+
+
+						// sehv oxuyur boslugu ^ isaresi ile evez ele
 
 						/*
 
@@ -148,103 +251,7 @@ void Admin_Menu()
 
 
 
-void Play(shared_ptr<Quiz> quiz)
-{
-	auto suallar = (*quiz).Get_Questions();
-	//Shuffle(suallar);
 
-	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
-
-	int key5, choose5 = 0;  // for show menu
-	size_t q_index = 0; //for show question 
-	size_t q_count = suallar->size();  // for update index
-
-	vector<string> menuForPlay{ " To Answer ", " Next " ," Previous " ," Submit " };
-
-	Question* sual = nullptr;
-
-	while (true)
-	{
-		system("cls"); SetColor(14);
-
-		cout << "\n\n\t\t~~~~  Sual  > " << (q_index + 1) << " < \n";
-		SetColor(10);
-
-		sual = GetQuestionByIndex(suallar, q_index);
-
-		if (sual == nullptr && q_index < suallar->size()) { q_index++; continue; }
-
-		cout << "\n\t\t" << sual->Get_Question() << endl;
-		SetColor(dft);
-		ShowMenu_v(choose5, menuForPlay);
-
-		key5 = _getch();
-		if (key5 > 96)
-		{
-			if (key5 == 224)key5 = _getch();
-			choose5 = KeyCheck(key5, choose5, 0, (menuForPlay.size() - 1));
-		}
-		else if (key5 == 13)
-		{
-			if (choose5 == 0)
-			{
-				system("cls");	SetColor(10);
-				cout << "\n\n\t\t" << sual->Get_Question() << endl;	SetColor(dft);
-
-				shared_ptr<Answers> A(sual->Get_Answers()); // hazirki sualin cavablari
-				vector<string> variantlar{ (*A).Get_Answer1(), (*A).Get_Answer2(),
-					(*A).Get_Answer3(),(*A).Get_Answer4() };
-				
-				//Shuffle(variantlar);
-				int key6, choose6 = 0;
-
-				while (true)
-				{
-					if (choose6 == 0) SetColor(2);
-					cout << "\n\tA ) " << (variantlar)[0]; SetColor(8);
-					if (choose6 == 1) SetColor(2);
-					cout << "\n\tB ) " << (variantlar)[1]; SetColor(8);
-					if (choose6 == 2) SetColor(2);
-					cout << "\n\tC ) " << (variantlar)[2]; SetColor(8);
-					if (choose6 == 3) SetColor(2);
-					cout << "\n\tD ) " << (variantlar)[3]; SetColor(dft);
-
-					key6 = _getch();
-					if (key6 > 96)
-					{
-						if (key6 == 224)key6 = _getch();
-						choose6 = KeyCheck(key6, choose6, 0, (variantlar.size() - 1));
-					}
-					else if (key6 == 13)
-					{
-						if (choose6 == 0)
-							cavablar[q_index] = variantlar[0];
-						else if (choose6 == 1)
-							cavablar[q_index] = variantlar[1];
-						else if (choose6 == 2)
-							cavablar[q_index] = variantlar[2];
-						else if (choose6 == 3)
-							cavablar[q_index] = variantlar[3];
-						
-						break;
-					}
-				}
-			}
-			else if (choose5 == 1)
-			{
-				if (q_index < (q_count - 1)) q_index++;
-			}
-			else if (choose5 == 2)
-			{
-				if (q_index > 0) q_index--;
-			}
-			else if (choose5 == 3)
-			{
-				// submit , delete question* sual;
-			}
-		}
-	}
-}
 
 
 void Guest_Menu()
