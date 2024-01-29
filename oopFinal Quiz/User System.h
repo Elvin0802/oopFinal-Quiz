@@ -432,7 +432,7 @@ public:
 	PlayerDatabase& operator=(const PlayerDatabase& other)
 	{
 		if (_players.size() > 0)
-			Delete_AllUsers();
+			Delete_AllPlayers();
 
 		for (auto u : other._players)
 			_players.push_back(new Player(*u));
@@ -508,8 +508,6 @@ public:
 		return false;
 	}
 
-	/*
-
 	void ReadAllPlayers()
 	{
 		ifstream file(_fileName, ios::in);
@@ -531,9 +529,9 @@ public:
 			if (!file.eof())
 			{
 				_endPlayer++;
-				file >> username >> total >> username >> correct >> wrong >> empty;
+				file >> username >> total >> correct >> wrong >> empty;
 
-				_players.push_back(new Player(,));
+				_players.push_back(new Player(username, stoi(correct), stoi(wrong), stoi(empty)));
 			}
 		}
 		file.close();
@@ -549,16 +547,16 @@ public:
 				GetTime(), __FILE__, __LINE__);
 		}
 
-		auto us = _users.back();
+		auto us = _players.back();
 
 		if (us != nullptr)
 		{
 			file << (++_endPlayer) << ". "
-				<< (us)->Get_Name() << " "
-				<< (us)->Get_Surname() << " "
 				<< (us)->Get_Username() << " "
-				<< (us)->Get_Password() << " "
-				<< (us)->Get_Access() << "\n";
+				<< (us)->Get_TotalCount() << " "
+				<< (us)->Get_CorrectCount() << " "
+				<< (us)->Get_WrongCount() << " "
+				<< (us)->Get_EmptyCount() << "\n";
 		}
 		file.close();
 	}
@@ -574,22 +572,20 @@ public:
 		}
 
 		size_t index = 1;
-		for (auto& us : _users)
+		for (auto& us : _players)
 		{
 			if (us != nullptr)
 			{
 				file << (index++) << ". "
-					<< us->Get_Name() << " "
-					<< us->Get_Surname() << " "
-					<< us->Get_Username() << " "
-					<< us->Get_Password() << " "
-					<< us->Get_Access() << "\n";
+					<< (us)->Get_Username() << " "
+					<< (us)->Get_TotalCount() << " "
+					<< (us)->Get_CorrectCount() << " "
+					<< (us)->Get_WrongCount() << " "
+					<< (us)->Get_EmptyCount() << "\n";
 			}
 		}
 		file.close();
 	}
-
-	*/
 
 	~PlayerDatabase()
 	{

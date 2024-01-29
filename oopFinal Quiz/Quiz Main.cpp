@@ -33,8 +33,8 @@ string AppQuizPlayers = "Quiz Players.txt";
 #include "User System.h"
 #include "Question Classes.h"
 #include "Quiz Classes.h"
-#include "Registration System.h"
 #include "Quiz Functions.h"
+#include "Registration System.h"
 /*-----------------------------------------*/
 
 //     throw InvalidArgumentException("\n Text ", GetTime(), __FILE__, __LINE__);  // Error atmaq uchun values

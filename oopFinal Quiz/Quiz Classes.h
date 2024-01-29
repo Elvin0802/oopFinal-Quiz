@@ -144,14 +144,14 @@ public:
 				GetTime(), __FILE__, __LINE__);
 		}
 
-		size_t index = _questions->size();
+		size_t index = 1;
 		for (auto& us : *(_questions))
 		{
 			if (us != nullptr)
 			{
 				auto answers = us->Get_Answers();
 
-				file << index << ". "
+				file << (index++) << ". "
 					<< us->Get_Question() << " "
 					<< answers->Get_Answer1() << " "
 					<< answers->Get_Answer2() << " "

@@ -89,7 +89,7 @@ void Admin_Menu()
 						else if (choose3 == 2)
 						{
 							newQuiz->WriteAllQuestions();
-							SaveQuizNameToDB(string(AppFolder + AppQuizPlayers), *(newQuiz->Get_QuizName()));
+							SaveQuizNameToDB(string(AppFolder + AppQuizNames), *(newQuiz->Get_QuizName()));
 							break;
 						}
 					}
@@ -139,7 +139,7 @@ void Admin_Menu()
 			}
 			else if (choose2 == 4)
 			{
-				// exit
+				break;
 			}
 		}
 	}
@@ -151,7 +151,7 @@ void Admin_Menu()
 void Play(shared_ptr<Quiz> quiz)
 {
 	auto suallar = (*quiz).Get_Questions();
-	Shuffle(suallar);
+	//Shuffle(suallar);
 
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
@@ -195,7 +195,7 @@ void Play(shared_ptr<Quiz> quiz)
 				vector<string> variantlar{ (*A).Get_Answer1(), (*A).Get_Answer2(),
 					(*A).Get_Answer3(),(*A).Get_Answer4() };
 				
-				Shuffle(variantlar);
+				//Shuffle(variantlar);
 				int key6, choose6 = 0;
 
 				while (true)

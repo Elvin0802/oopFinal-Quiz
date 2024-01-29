@@ -6,7 +6,6 @@ class Exception : public exception
 	string _text = "";
 	string _time = "";
 	string _source = "";
-	string _function = "";
 	size_t _line = 0;
 	string _completed_message = "";
 
@@ -22,7 +21,6 @@ public:
 		this->_completed_message
 			= "\n\n\t---  Description of Exception  ---" + _text
 			+ "\n--  Exception Source :  " + _source
-			+ "\n--  The Function Where the Exception Occurred :  " + _function
 			+ "\n--  Exception Time :  " + _time
 			+ "--  Exception Line :  " + to_string(_line)
 			+ "\n\n\n";

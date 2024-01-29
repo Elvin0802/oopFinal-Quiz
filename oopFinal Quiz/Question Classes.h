@@ -31,34 +31,25 @@ public:
 		return (*this);
 	}
 
-	string& Check_Answer(string _answer)
-	{
-		if (_answer != "" || _answer != " ")
-			return _answer;
-
-		throw Exception("\nCavabi Duzgun Daxil Edin !\n",
-			GetTime(), __FILE__, __LINE__);
-	}
-
 	void Set_Answer1(string answer)
 	{
-		this->_answer1 = Check_Answer(answer);
+		this->_answer1 = answer;
 	}
 	void Set_Answer2(string answer)
 	{
-		this->_answer2 = Check_Answer(answer);
+		this->_answer2 = answer;
 	}
 	void Set_Answer3(string answer)
 	{
-		this->_answer3 = Check_Answer(answer);
+		this->_answer3 = answer;
 	}
 	void Set_Answer4(string answer)
 	{
-		this->_answer4 = Check_Answer(answer);
+		this->_answer4 = answer;
 	}
 	void Set_CorrectAnswer(string answer)
 	{
-		this->_correctAnswer = Check_Answer(answer);
+		this->_correctAnswer = answer;
 	}
 
 	string Get_Answer1() const { return this->_answer1; }
@@ -104,7 +95,7 @@ public:
 
 		this->_question = question;
 
-		if (this->_question.back() != '?') this->_question += " ?";
+		if (this->_question.back() != '?') this->_question += "?";
 	}
 	void Set_Answers(const Answers* answers)
 	{
