@@ -17,10 +17,10 @@ HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE); // for change (set) Color
 
 /*--------->>  App File Destinations  <<-----------*/
 string txt = ".txt";
-string AppFolder = "APP txt Files/";
-string AppUsers = "Users.txt";
-string AppQuizNames = "Quiz Names.txt";
-string AppQuizPlayers = "Quiz Players.txt";
+string Folder = "txt Files/";
+string Users = "Users.txt";
+string QuizNames = "Quiz Names.txt";
+string Players = "Players.txt";
 /*--------------------------------------------------*/
 
 

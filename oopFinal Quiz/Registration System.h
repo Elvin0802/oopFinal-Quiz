@@ -188,7 +188,7 @@ void Admin_Menu()
 						else if (choose3 == 2)
 						{
 							newQuiz->WriteAllQuestions();
-							SaveQuizNameToDB(string(AppFolder + AppQuizNames), *(newQuiz->Get_QuizName()));
+							SaveQuizNameToDB(string(Folder + QuizNames), *(newQuiz->Get_QuizName()));
 							break;
 						}
 					}
@@ -197,7 +197,7 @@ void Admin_Menu()
 			else if (choose2 == 1)
 			{
 				int key4, choose4 = 0;
-				auto quizzes = GetQuizNamesFromDB(string(AppFolder + AppQuizNames));
+				auto quizzes = GetQuizNamesFromDB(string(Folder + QuizNames));
 
 				while (true)
 				{
@@ -266,7 +266,7 @@ string Login_Menu()
 	int key1, choose1 = 0;
 	vector<string> menuForLogin{ " Sign In "," Sign Up " ," Exit " };
 
-	shared_ptr<UserDatabase> appUserDB(new UserDatabase(AppFolder + AppUsers));
+	shared_ptr<UserDatabase> appUserDB(new UserDatabase(Folder + Users));
 	appUserDB->ReadAllUsers();
 
 	while (true)
