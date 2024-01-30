@@ -92,11 +92,16 @@ public:
 
 		while (!file.eof())
 		{
-			file >> index;
+			getline(file, index, '>');
 
 			if (!file.eof())
 			{
-				file >> question >> a1 >> a2 >> a3 >> a4 >> correctA;
+				getline(file, question,'>');
+				getline(file, a1,'>');
+				getline(file, a2,'>');
+				getline(file, a3,'>');
+				getline(file, a4,'>');
+				getline(file, correctA);
 
 				Answers* answers = new Answers(a1, a2, a3, a4, correctA);
 
@@ -123,12 +128,12 @@ public:
 		{
 			auto answers = (*us)->Get_Answers();
 
-			file << _questions->size() << ". "
-				<< (*us)->Get_Question() << " "
-				<< answers->Get_Answer1() << " "
-				<< answers->Get_Answer2() << " "
-				<< answers->Get_Answer3() << " "
-				<< answers->Get_Answer4() << " "
+			file << _questions->size() << ".>"
+				<< (*us)->Get_Question() << ">"
+				<< answers->Get_Answer1() << ">"
+				<< answers->Get_Answer2() << ">"
+				<< answers->Get_Answer3() << ">"
+				<< answers->Get_Answer4() << ">"
 				<< answers->Get_CorrectAnswer() << "\n";
 		}
 		file.close();
@@ -151,12 +156,12 @@ public:
 			{
 				auto answers = us->Get_Answers();
 
-				file << (index++) << ". "
-					<< us->Get_Question() << " "
-					<< answers->Get_Answer1() << " "
-					<< answers->Get_Answer2() << " "
-					<< answers->Get_Answer3() << " "
-					<< answers->Get_Answer4() << " "
+				file << (index++) << ".>"
+					<< us->Get_Question() << ">"
+					<< answers->Get_Answer1() << ">"
+					<< answers->Get_Answer2() << ">"
+					<< answers->Get_Answer3() << ">"
+					<< answers->Get_Answer4() << ">"
 					<< answers->Get_CorrectAnswer() << "\n";
 			}
 		}

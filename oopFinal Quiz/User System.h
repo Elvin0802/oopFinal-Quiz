@@ -222,12 +222,16 @@ public:
 
 		while (!file.eof())
 		{
-			file >> index;
+			getline(file, index, '^');
 
 			if (!file.eof())
 			{
 				_endUser++;
-				file >> name >> surname >> username >> password >> level;
+				getline(file, name, '^');
+				getline(file, surname, '^');
+				getline(file, username, '^');
+				getline(file, password, '^');
+				getline(file, level);
 
 				_users.push_back(new User(username, password, name, surname, level));
 			}
@@ -249,11 +253,11 @@ public:
 
 		if (us != nullptr)
 		{
-			file << (++_endUser) << ". "
-				<< (us)->Get_Name() << " "
-				<< (us)->Get_Surname() << " "
-				<< (us)->Get_Username() << " "
-				<< (us)->Get_Password() << " "
+			file << (++_endUser) << ".^"
+				<< (us)->Get_Name() << "^"
+				<< (us)->Get_Surname() << "^"
+				<< (us)->Get_Username() << "^"
+				<< (us)->Get_Password() << "^"
 				<< (us)->Get_Access() << "\n";
 		}
 		file.close();
@@ -274,11 +278,11 @@ public:
 		{
 			if (us != nullptr)
 			{
-				file << (index++) << ". "
-					<< us->Get_Name() << " "
-					<< us->Get_Surname() << " "
-					<< us->Get_Username() << " "
-					<< us->Get_Password() << " "
+				file << (index++) << ".^"
+					<< us->Get_Name() << "^"
+					<< us->Get_Surname() << "^"
+					<< us->Get_Username() << "^"
+					<< us->Get_Password() << "^"
 					<< us->Get_Access() << "\n";
 			}
 		}
@@ -524,12 +528,16 @@ public:
 
 		while (!file.eof())
 		{
-			file >> index;
+			getline(file, index, '|');
 
 			if (!file.eof())
 			{
 				_endPlayer++;
-				file >> username >> total >> correct >> wrong >> empty;
+				getline(file, username, '|');
+				getline(file, total, '|');
+				getline(file, correct, '|');
+				getline(file, wrong, '|');
+				getline(file, empty);
 
 				_players.push_back(new Player(username, stoi(correct), stoi(wrong), stoi(empty)));
 			}
@@ -551,11 +559,11 @@ public:
 
 		if (us != nullptr)
 		{
-			file << (++_endPlayer) << ". "
-				<< (us)->Get_Username() << " "
-				<< (us)->Get_TotalCount() << " "
-				<< (us)->Get_CorrectCount() << " "
-				<< (us)->Get_WrongCount() << " "
+			file << (++_endPlayer) << ".|"
+				<< (us)->Get_Username() << "|"
+				<< (us)->Get_TotalCount() << "|"
+				<< (us)->Get_CorrectCount() << "|"
+				<< (us)->Get_WrongCount() << "|"
 				<< (us)->Get_EmptyCount() << "\n";
 		}
 		file.close();
@@ -576,11 +584,11 @@ public:
 		{
 			if (us != nullptr)
 			{
-				file << (index++) << ". "
-					<< (us)->Get_Username() << " "
-					<< (us)->Get_TotalCount() << " "
-					<< (us)->Get_CorrectCount() << " "
-					<< (us)->Get_WrongCount() << " "
+				file << (index++) << ".|"
+					<< (us)->Get_Username() << "|"
+					<< (us)->Get_TotalCount() << "|"
+					<< (us)->Get_CorrectCount() << "|"
+					<< (us)->Get_WrongCount() << "|"
 					<< (us)->Get_EmptyCount() << "\n";
 			}
 		}
