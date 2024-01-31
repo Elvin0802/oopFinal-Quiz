@@ -23,6 +23,13 @@ Question* GetQuestionByIndex(const list<Question*>* QList, int index = -1)
 	return nullptr;
 }
 
+void FillWithEmpty(vector<string>& _Vector, size_t _count)
+{
+	for (size_t emp = 0; emp < _count; emp++)
+	{
+		_Vector.push_back("_empty_");
+	}
+}
 
 // Shuffle with random engine ( only work with Collection )
 //template<typename T>

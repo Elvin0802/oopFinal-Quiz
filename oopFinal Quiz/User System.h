@@ -299,6 +299,7 @@ public:
 class Player
 {
 	string* _username = nullptr; // player username from user database
+	string* _playedQuiz = nullptr;
 	int* _totalCount = nullptr; // verilen cavablarin cemi sayi
 	int* _correctCount = nullptr; // duzgun cavablarin sayi
 	int* _wrongCount = nullptr; // sehv cavablarin sayi
@@ -308,16 +309,17 @@ class Player
 
 public:
 
-	Player(string _username, int _correctCount, int _wrongCount, int _emptyCount)
+	Player(string username, string playedQuiz, int correctCount, int wrongCount, int emptyCount)
 	{
-		this->Set_Username(_username);
-		this->Set_CorrectCount(_correctCount);
-		this->Set_EmptyCount(_emptyCount);
-		this->Set_WrongCount(_wrongCount);
+		this->Set_Username(username);
+		this->Set_PlayedQuizName(playedQuiz);
+		this->Set_CorrectCount(correctCount);
+		this->Set_EmptyCount(emptyCount);
+		this->Set_WrongCount(wrongCount);
 		this->Set_TotalCount();
 	}
 	Player(const Player& player)
-		: Player(*(player._username), *(player._correctCount), *(player._wrongCount), *(player._emptyCount))
+		: Player(*(player._username), *(player._playedQuiz), *(player._correctCount), *(player._wrongCount), *(player._emptyCount))
 	{}
 	~Player()
 	{
@@ -325,6 +327,11 @@ public:
 		{
 			delete this->_username;
 			this->_username = nullptr;
+		}
+		if (this->_playedQuiz != nullptr)
+		{
+			delete this->_playedQuiz;
+			this->_playedQuiz = nullptr;
 		}
 		if (this->_totalCount != nullptr)
 		{
@@ -351,6 +358,7 @@ public:
 	Player& operator=(const Player& player)
 	{
 		this->Set_Username(*(player._username));
+		this->Set_PlayedQuizName(*(player._playedQuiz));
 		this->Set_CorrectCount(*(player._correctCount));
 		this->Set_EmptyCount(*(player._emptyCount));
 		this->Set_WrongCount(*(player._wrongCount));
@@ -402,12 +410,22 @@ public:
 
 		this->_username = new string(username);
 	}
+	void Set_PlayedQuizName(string quiz)
+	{
+		if (quiz.length() < 2)
+			throw InvalidArgumentException("\n Len 3-den Kichik Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+
+		if (this->_playedQuiz != nullptr) delete this->_playedQuiz;
+
+		this->_playedQuiz = new string(quiz);
+	}
 
 	int Get_CorrectCount() { return *_totalCount; }
 	int Get_WrongCount() { return *_correctCount; }
 	int Get_EmptyCount() { return *_wrongCount; }
 	int Get_TotalCount() { return *_emptyCount; }
 	string Get_Username() { return *_username; }
+	string Get_PlayedQuizName() { return *_playedQuiz; }
 
 };
 
@@ -522,7 +540,7 @@ public:
 				GetTime(), __FILE__, __LINE__);
 		}
 
-		string index = "", username = "", total = "", correct = "", wrong = "", empty = "";
+		string index = "", username = "", playedQuiz = "", total = "", correct = "", wrong = "", empty = "";
 
 		this->Delete_AllPlayers(); _endPlayer = 0;
 
@@ -534,12 +552,13 @@ public:
 			{
 				_endPlayer++;
 				getline(file, username, '|');
+				getline(file, playedQuiz, '|');
 				getline(file, total, '|');
 				getline(file, correct, '|');
 				getline(file, wrong, '|');
 				getline(file, empty);
 
-				_players.push_back(new Player(username, stoi(correct), stoi(wrong), stoi(empty)));
+				_players.push_back(new Player(username, playedQuiz, stoi(correct), stoi(wrong), stoi(empty)));
 			}
 		}
 		file.close();
@@ -561,6 +580,7 @@ public:
 		{
 			file << (++_endPlayer) << ".|"
 				<< (us)->Get_Username() << "|"
+				<< (us)->Get_PlayedQuizName() << "|"
 				<< (us)->Get_TotalCount() << "|"
 				<< (us)->Get_CorrectCount() << "|"
 				<< (us)->Get_WrongCount() << "|"
@@ -586,6 +606,7 @@ public:
 			{
 				file << (index++) << ".|"
 					<< (us)->Get_Username() << "|"
+					<< (us)->Get_PlayedQuizName() << "|"
 					<< (us)->Get_TotalCount() << "|"
 					<< (us)->Get_CorrectCount() << "|"
 					<< (us)->Get_WrongCount() << "|"

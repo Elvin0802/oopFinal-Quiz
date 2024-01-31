@@ -102,13 +102,16 @@ auto GetQuizNamesFromDB(string dbName)
 }
 
 // Show Vector Menu Elements with Colored Choose.
-void ShowMenu_v(int Choose, const vector<string>& Vector)
+void ShowMenu_v(int Choose, const vector<string>& Vector, int _ignore = -1)
 {
 	size_t end = Vector.size();
 
 	cout << endl << endl;
 	for (size_t sl = 0; sl < end; sl++)
 	{
+		if (sl == _ignore)
+			continue;
+
 		if (Choose == sl)
 		{
 			SetConsoleTextAttribute(h, 3);

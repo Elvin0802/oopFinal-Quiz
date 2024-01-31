@@ -103,7 +103,7 @@ public:
 		this->_answers = new Answers(*answers);
 	}
 
-	Answers* Get_Answers() const { return this->_answers; }
+	Answers* Get_Answers() const { return new Answers(*(this->_answers)); }
 	string Get_CorrectAnswer() const { return (this->_answers->Get_CorrectAnswer()); }
 	string Get_Question() const { return this->_question; }
 

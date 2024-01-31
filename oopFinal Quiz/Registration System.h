@@ -8,9 +8,12 @@ void Play(shared_ptr<Quiz> quiz)
 
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
+	FillWithEmpty(cavablar, suallar->size());
+
 	int key5, choose5 = 0;  // for show menu
 	size_t q_index = 0; //for show question 
 	size_t q_count = suallar->size();  // for update index
+	int ignoreIndex = -2;
 
 	vector<string> menuForPlay{ " To Answer ", " Next ", " Previous ", " Submit " };
 
@@ -25,11 +28,16 @@ void Play(shared_ptr<Quiz> quiz)
 
 		sual = GetQuestionByIndex(suallar, q_index);
 
-		if (sual == nullptr && q_index < suallar->size()) { q_index++; continue; }
+		//if (sual == nullptr && q_index < suallar->size()) { q_index++; continue; }
 
 		cout << "\n\t\t" << sual->Get_Question() << endl;
 		SetColor(dft);
-		ShowMenu_v(choose5, menuForPlay);
+
+		if (q_index == 0)ignoreIndex = 2;
+		else if (q_index == q_count)ignoreIndex = 1;
+
+		ShowMenu_v(choose5, menuForPlay, ignoreIndex);
+		ignoreIndex = -2;
 
 		key5 = _getch();
 		if (key5 > 96)
@@ -41,9 +49,6 @@ void Play(shared_ptr<Quiz> quiz)
 		{
 			if (choose5 == 0)
 			{
-				system("cls");	SetColor(10);
-				cout << "\n\n\t\t" << sual->Get_Question() << endl;	SetColor(dft);
-
 				shared_ptr<Answers> A(sual->Get_Answers()); // hazirki sualin cavablari
 				vector<string> variantlar{ (*A).Get_Answer1(), (*A).Get_Answer2(),
 					(*A).Get_Answer3(), (*A).Get_Answer4() };
@@ -53,6 +58,9 @@ void Play(shared_ptr<Quiz> quiz)
 
 				while (true)
 				{
+					system("cls"); SetColor(10);
+					cout << "\n\n\t\t" << sual->Get_Question() << endl; SetColor(8);
+
 					if (choose6 == 0) SetColor(2);
 					cout << "\n\tA ) " << (variantlar)[0]; SetColor(8);
 					if (choose6 == 1) SetColor(2);
@@ -70,14 +78,7 @@ void Play(shared_ptr<Quiz> quiz)
 					}
 					else if (key6 == 13)
 					{
-						if (choose6 == 0)
-							cavablar[q_index] = variantlar[0];
-						else if (choose6 == 1)
-							cavablar[q_index] = variantlar[1];
-						else if (choose6 == 2)
-							cavablar[q_index] = variantlar[2];
-						else if (choose6 == 3)
-							cavablar[q_index] = variantlar[3];
+						cavablar[q_index] = variantlar[choose6];
 
 						break;
 					}
@@ -94,6 +95,13 @@ void Play(shared_ptr<Quiz> quiz)
 			else if (choose5 == 3)
 			{
 				// submit , delete question* sual;
+
+				// yoxlamalar ele score cixar
+
+
+
+				//delete sual;
+				//Player* pl = new Player();
 			}
 		}
 	}
@@ -218,14 +226,6 @@ void Admin_Menu()
 						Play(playingQuiz);
 
 
-						// sehv oxuyur boslugu ^ isaresi ile evez ele
-
-						/*
-
-						play funksiyasi yaz. quiz pointer alsin. next , prev , submit orda olsun.
-
-
-						*/
 
 					}
 
