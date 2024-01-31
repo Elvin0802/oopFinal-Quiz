@@ -425,6 +425,19 @@ public:
 	string Get_Username() { return *_username; }
 	string Get_PlayedQuizName() { return *_playedQuiz; }
 
+	void Show(bool show_name)
+	{
+		SetColor(5); cout << endl;
+
+		if(show_name) cout << "Username : " << *_username << " | ";
+
+		cout << "Played Quiz Name : " << *_playedQuiz << " | ";
+		cout << "Total Answer Count : " << *_totalCount << " | ";
+		cout << "Correct Answer Count : " << *_correctCount << " | ";
+		cout << "Wrong Answer Count : " << *_wrongCount << " | ";
+		cout << "Empty Answer Count : " << *_emptyCount << endl<<endl;
+	}
+
 };
 
 

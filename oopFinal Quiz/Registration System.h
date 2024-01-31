@@ -251,16 +251,26 @@ void Admin_Menu()
 						playingQuiz->ReadAllQuestions();
 
 						Play(playingQuiz);
-
-
-
-					}
+}
 
 				}
 			}
 			else if (choose2 == 2)
 			{
-				// user class show
+				PlayerDatabase* playerDB = new PlayerDatabase(Folder + Players);
+
+				playerDB->ReadAllPlayers();
+
+				list<Player*> players = playerDB->Get_Players();
+				
+				for (auto player : players)
+				{
+					if (player->Get_Username() == gUserName)
+					{
+						player->Show(false);
+					}
+				}
+
 			}
 			else if (choose2 == 3)
 			{
