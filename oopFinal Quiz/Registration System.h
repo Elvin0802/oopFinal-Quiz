@@ -8,7 +8,7 @@ void Play(shared_ptr<Quiz> quiz)
 
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
-	FillWithEmpty(cavablar, suallar->size());
+	FillWithEmpty(cavablar, suallar->size()); // sual sayi qeder ' bosh ' doldurur
 
 	int key5, choose5 = 0;  // for show menu
 	size_t q_index = 0; //for show question 
@@ -30,11 +30,10 @@ void Play(shared_ptr<Quiz> quiz)
 
 		//if (sual == nullptr && q_index < suallar->size()) { q_index++; continue; }
 
-		cout << "\n\t\t" << sual->Get_Question() << endl;
-		SetColor(dft);
+		cout << "\n\t\t" << sual->Get_Question() << endl; SetColor(dft);
 
-		if (q_index == 0)ignoreIndex = 2;
-		else if (q_index == q_count)ignoreIndex = 1;
+		if (q_index == 0) ignoreIndex = 2;
+		else if (q_index == (q_count-1)) ignoreIndex = 1;
 
 		ShowMenu_v(choose5, menuForPlay, ignoreIndex);
 		ignoreIndex = -2;
@@ -98,10 +97,38 @@ void Play(shared_ptr<Quiz> quiz)
 
 				// yoxlamalar ele score cixar
 
+				string corAnswer = "", quizName = *((*quiz).Get_QuizName());
+				int c_index = 0, duzSayi = 0, sehvSayi = 0, boshSayi = 0;
 
-
-				//delete sual;
 				//Player* pl = new Player();
+
+				for (auto s : *suallar)
+				{
+					corAnswer = s->Get_Answers()->Get_CorrectAnswer();
+
+					if (cavablar[c_index] == corAnswer)
+						duzSayi++;
+					else if (cavablar[c_index] == "_empty_")
+						boshSayi++;
+					else 
+						sehvSayi++;
+				}
+
+				cout << "\n\n\tUsername : " << gUserName << endl;
+				cout << "\n\tQuiz Name : " << quizName << endl;
+				cout << "\n\tDogru Cavablarin Sayi : "<< duzSayi << endl;
+				cout << "\n\tSehv Cavablarin Sayi : "<< sehvSayi << endl;
+				cout << "\n\tBosh Cavablarin Sayi : " << boshSayi << endl << endl;
+
+				Player* pl = new Player(gUserName, quizName, duzSayi, sehvSayi, boshSayi);
+				
+				PlayerDatabase* PlDb = new PlayerDatabase(Folder + Players);
+				PlDb->addPlayer(pl);
+				PlDb->WriteEndPlayer();
+
+				if (pl != nullptr) delete pl;
+				if (sual != nullptr) delete sual;
+				if (PlDb != nullptr) delete PlDb;
 			}
 		}
 	}
@@ -296,6 +323,7 @@ string Login_Menu()
 
 					if (appUserDB->Check_User(un, ps))
 					{
+						gUserName = un;
 						return (appUserDB->getUserByUsername(un).Get_Access());
 					}
 					else

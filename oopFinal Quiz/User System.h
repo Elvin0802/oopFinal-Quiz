@@ -305,8 +305,6 @@ class Player
 	int* _wrongCount = nullptr; // sehv cavablarin sayi
 	int* _emptyCount = nullptr; // bosh (cavab verilmeyen) cavablarin sayi
 
-	// yeni fieldler elave ele - quiz name - hansi quiz uzre oldugu .
-
 public:
 
 	Player(string username, string playedQuiz, int correctCount, int wrongCount, int emptyCount)
