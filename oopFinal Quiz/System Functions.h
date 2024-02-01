@@ -112,15 +112,16 @@ void ShowMenu_v(int Choose, const vector<string>& Vector, int _ignore = -1)
 
 		if (Choose == sl)
 		{
-			SetConsoleTextAttribute(h, 3);
+			SetColor(3);
 			cout << "\n\t\t" << Vector[sl] << endl;
-			SetConsoleTextAttribute(h, dft);
+			SetColor(dft);
 		}
 		else
 			cout << "\n\t\t" << Vector[sl] << endl;
 	}
 }
 
+// Show Animated Loading Screen According to the Parameters
 void LoadingScreen(string text,size_t millisecond = 100, int color = 6)
 {
 	SetColor(color); system("cls");
@@ -146,23 +147,3 @@ void LoadingScreen(string text,size_t millisecond = 100, int color = 6)
 	SetConsoleCP(0);
 	SetConsoleOutputCP(0); SetColor(dft);
 }
-
-
-//		Lazimsizdi.  Silersen.
-
-// 
-//// Show List Menu Elements with Colored Choose.
-//void ShowMenu_v(string Choose, const list<string>& List)
-//{
-//	for (auto str : List)
-//	{
-//		if (str == Choose)
-//		{
-//			SetConsoleTextAttribute(h, 3);
-//			cout << "\t\t" << str << endl;
-//			SetConsoleTextAttribute(h, dft);
-//		}
-//		else
-//			cout << "\t\t" << str << endl;
-//	}
-//}

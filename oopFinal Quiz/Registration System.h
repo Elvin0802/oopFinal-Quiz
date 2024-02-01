@@ -243,6 +243,9 @@ void Admin_Menu()
 				while (true)
 				{
 					system("cls");
+
+					printf("\n\t\t\tSelect Quiz For Starting.\n");
+
 					ShowMenu_v(choose4, quizzes);
 
 					key4 = _getch();
@@ -289,6 +292,35 @@ void Admin_Menu()
 			else if (choose2 == 3)
 			{
 				LoadingScreen("Updating", 65, 2);
+
+				int key8, choose8 = 0; 
+				string quizName = " ->~ Exit ~<- (not quiz) ";
+				vector<string> show_quizzes{ quizName };
+
+				GetQuizNamesFromDB(string(Folder + QuizNames), show_quizzes);
+
+				while (true)
+				{
+					system("cls");
+					ShowMenu_v(choose8, show_quizzes);
+
+					key8 = _getch();
+					if (key8 > 96)
+					{
+						if (key8 == 224) key8 = _getch();
+						choose8 = KeyCheck(key8, choose8, 0, (show_quizzes.size() - 1));
+					}
+					else if (key8 == 13)
+					{
+						if (show_quizzes.at(choose8) == " ->~ Exit ~<- (not quiz) ")
+							break;
+
+						quizName = show_quizzes.at(choose8);						
+					}
+
+				}
+
+
 
 				PlayerDatabase* playerDB = new PlayerDatabase(Folder + Players);
 
