@@ -1,0 +1,5 @@
+1.>OOP Nedir?>Paradiqma>Class>Struct>Stream>Paradiqma
+2.>noexcept Nedir?>error>no error>error no>erroru yoxlamir>erroru yoxlamir
+3.>const nedir?>sabit deyer>metod icinde hecne deyishe bilmez>keyword>data type>metod icinde hecne deyishe bilmez
+4.>use nin Diger Adi nedir?>Dependecy>Inheritance>Assosecion>istifade etmek>Dependecy
+5.>Inheritancenin neche novu var?>2>6>7>4>6

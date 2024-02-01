@@ -3,3 +3,4 @@
 --> TestOOP1
 --> Werty
 --> Yaprak
+--> Inheritance

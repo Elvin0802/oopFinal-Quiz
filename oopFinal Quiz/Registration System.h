@@ -93,14 +93,8 @@ void Play(shared_ptr<Quiz> quiz)
 			}
 			else if (choose5 == 3)
 			{
-				// submit , delete question* sual;
-
-				// yoxlamalar ele score cixar
-
 				string corAnswer = "", quizName = *((*quiz).Get_QuizName());
 				int c_index = 0, duzSayi = 0, sehvSayi = 0, boshSayi = 0;
-
-				//Player* pl = new Player();
 
 				for (auto s : *suallar)
 				{
@@ -112,6 +106,8 @@ void Play(shared_ptr<Quiz> quiz)
 						boshSayi++;
 					else 
 						sehvSayi++;
+
+					c_index++;
 				}
 
 				cout << "\n\n\tUsername : " << gUserName << endl;
@@ -126,9 +122,9 @@ void Play(shared_ptr<Quiz> quiz)
 				PlDb->addPlayer(pl);
 				PlDb->WriteEndPlayer();
 
-				if (pl != nullptr) delete pl;
-				if (sual != nullptr) delete sual;
-				if (PlDb != nullptr) delete PlDb;
+				if (pl != nullptr) { delete pl; pl = nullptr; }
+				if (sual != nullptr) { delete sual; sual = nullptr; }
+				if (PlDb != nullptr) { delete PlDb; PlDb = nullptr; }
 			}
 		}
 	}
@@ -270,6 +266,13 @@ void Admin_Menu()
 						player->Show(false);
 					}
 				}
+
+				SetColor(11);
+				cout << "\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
+				SetColor(dft); cin.get();
+
+				if (playerDB != nullptr) { delete playerDB; playerDB = nullptr; }
+
 
 			}
 			else if (choose2 == 3)

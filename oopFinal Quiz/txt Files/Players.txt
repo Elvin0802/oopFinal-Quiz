@@ -5,3 +5,4 @@
 5.|admin|Yaprak|0|4|0|4
 6.|admin|Yaprak|1|4|2|5
 7.|admin|Yaprak|0|4|0|4
+8.|admin|Inheritance|0|5|1|4

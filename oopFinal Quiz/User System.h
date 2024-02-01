@@ -427,7 +427,7 @@ public:
 
 	void Show(bool show_name)
 	{
-		SetColor(7); cout << endl;
+		SetColor(12); cout << endl;
 
 		if(show_name) cout << "\nUsername : " << *_username << " | \n\n";
 
@@ -435,7 +435,7 @@ public:
 		cout << "Total Answer Count : " << *_totalCount << " | \n";
 		cout << "Correct Count : " << *_correctCount << " | \n";
 		cout << "Wrong Count : " << *_wrongCount << " | \n";
-		cout << "Empty Count : " << *_emptyCount << endl<<endl;
+		cout << "Empty Count : " << *_emptyCount << endl << endl;
 		SetColor(dft);
 	}
 
