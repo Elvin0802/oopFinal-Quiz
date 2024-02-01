@@ -98,7 +98,7 @@ void Play(shared_ptr<Quiz> quiz)
 
 				for (auto s : *suallar)
 				{
-					corAnswer = s->Get_Answers()->Get_CorrectAnswer();
+					corAnswer = s->Get_CorrectAnswer();
 
 					if (cavablar[c_index] == corAnswer)
 						duzSayi++;
