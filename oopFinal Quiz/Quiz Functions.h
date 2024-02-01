@@ -31,11 +31,26 @@ void FillWithEmpty(vector<string>& _Vector, size_t _count)
 	}
 }
 
-void DeleteItemsInList()
+// Delete All Items In List (Heap).
+void DeleteAllItemsInList(list<Question*>*& _list)
 {
-
-
+	for (auto elem : *_list)
+	{
+		if (elem != nullptr)
+		{
+			delete elem;
+			elem = nullptr;
+		}
+	}
+	_list->clear();
 }
+
+// Predicator For Leader Board. (sort and show)
+bool ComparePlayersBySuccessRate(const Player* first, const Player* second) 
+{
+	return first->Get_SuccessRate() < second->Get_SuccessRate();
+}
+
 
 // Shuffle with random engine ( only work with Collection )
 //template<typename T>

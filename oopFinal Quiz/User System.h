@@ -145,10 +145,7 @@ public:
 		this->_fileName = file;
 	}
 
-	string GetFileName()const
-	{
-		return this->_fileName;
-	}
+	string GetFileName()const { return this->_fileName; }
 
 	User& getUserByUsername(string username)
 	{
@@ -437,15 +434,15 @@ public:
 		this->_playedQuiz = new string(quiz);
 	}
 
-	int Get_CorrectCount() { return *_correctCount; }
-	int Get_WrongCount() { return *_wrongCount; }
-	int Get_EmptyCount() { return *_emptyCount; }
-	int Get_TotalCount() { return *_totalCount; }
-	double Get_SuccessRate() { return *_successRate; }
-	string Get_Username() { return *_username; }
-	string Get_PlayedQuizName() { return *_playedQuiz; }
+	int Get_CorrectCount() const { return *_correctCount; }
+	int Get_WrongCount() const { return *_wrongCount; }
+	int Get_EmptyCount() const { return *_emptyCount; }
+	int Get_TotalCount() const { return *_totalCount; }
+	double Get_SuccessRate() const { return *_successRate; }
+	string Get_Username() const { return *_username; }
+	string Get_PlayedQuizName() const { return *_playedQuiz; }
 
-	void Show(bool show_name)
+	void Show(bool show_name) const
 	{
 		SetColor(12); cout << endl;
 
@@ -623,7 +620,7 @@ public:
 		file.close();
 	}
 
-	void WriteEndPlayer()
+	void WriteEndPlayer() 
 	{
 		ofstream file(_fileName, ios::app);
 
@@ -667,6 +664,7 @@ public:
 				file << (index++) << ".|"
 					<< (us)->Get_Username() << "|"
 					<< (us)->Get_PlayedQuizName() << "|"
+					<< (us)->Get_SuccessRate() << "|"
 					<< (us)->Get_TotalCount() << "|"
 					<< (us)->Get_CorrectCount() << "|"
 					<< (us)->Get_WrongCount() << "|"

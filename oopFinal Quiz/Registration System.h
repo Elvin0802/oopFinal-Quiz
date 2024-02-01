@@ -3,7 +3,7 @@
 
 void Play(shared_ptr<Quiz> quiz)
 {
-	auto suallar = (*quiz).Get_Questions();
+	list<Question*>* suallar = (*quiz).Get_Questions();
 	//Shuffle(suallar);
 	//shuffle(suallar->begin(), suallar->end(),default_random_engine(random_device()()));
 
@@ -14,7 +14,7 @@ void Play(shared_ptr<Quiz> quiz)
 	int key5, choose5 = 0;  // for show menu
 	size_t q_index = 0; //for show question 
 	size_t q_count = suallar->size();  // for update index
-	int ignoreIndex = -2;
+	int ignoreIndex = -2; // for show or dont show - next and prev.
 
 	vector<string> menuForPlay{ " To Answer ", " Next ", " Previous ", " Submit " };
 
@@ -130,6 +130,7 @@ void Play(shared_ptr<Quiz> quiz)
 				if (sual != nullptr) { delete sual; sual = nullptr; }
 				if (PlDb != nullptr) { delete PlDb; PlDb = nullptr; }
 
+				DeleteAllItemsInList(suallar);
 				return;
 			}
 		}
@@ -331,8 +332,7 @@ void Admin_Menu()
 
 				list<Player*> players = plDb->Get_Players();
 
-				for (auto player : players)
-					player->Show(false);
+				//players.sort();
 				
 
 				SetColor(11);
