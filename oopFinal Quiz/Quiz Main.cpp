@@ -1,11 +1,11 @@
 #include <iostream>
-#include <list>
-#include <vector>
-#include <conio.h>
 #include <Windows.h>
+#include <vector>
+#include <list>
 #include <string>
 #include <fstream>
 #include <algorithm>
+#include <conio.h>
 #include <memory>
 #include <random>
 
@@ -26,7 +26,7 @@ string Players = "Players.txt";
 
 
 /*-------------------------*/
-string gUserName = "";
+string gUserName = ""; // for Save player to file.
 /*-------------------------*/  
 
 /*******  Application Headers  ********/
@@ -40,11 +40,11 @@ string gUserName = "";
 #include "Registration System.h"
 /*-----------------------------------------*/
 
-//     throw InvalidArgumentException("\n Text ", GetTime(), __FILE__, __LINE__);  // Error atmaq uchun values
-
 
 void main()
 {
+	LoadingScreen("Loading",50);
+
 	while (true)
 	{
 		string Level;
@@ -73,6 +73,7 @@ void main()
 			}
 			else if (Level == "__break__")
 			{
+				LoadingScreen("Exiting", 35);
 				break;
 			}
 		}
@@ -84,41 +85,4 @@ void main()
 			system("pause");
 		}
 	}
-
-
-
 }
-
-
-
-
-
-
-
-/*
-
- // Print the words using a for each loop
-
-	cout << "Words in the list (using for each loop):" << endl;
-
-	for (const string& word : my_list)
-	{
-		cout << word << " ";
-	}
-
-	cout << endl;
-
-	----------------------------------------------------------------------------------
-
-	// Print the words using a list iterator
-
-	cout << "Words in the list (using list iterator):" << endl;
-
-	for (list<string>::iterator it = my_list.begin(); it != my_list.end(); ++it)
-	{
-		cout << *it << " ";
-	}
-
-	cout << endl;
-
-*/

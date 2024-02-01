@@ -6,7 +6,7 @@ void Play(shared_ptr<Quiz> quiz)
 	auto suallar = (*quiz).Get_Questions();
 	//Shuffle(suallar);
 	//shuffle(suallar->begin(), suallar->end(),default_random_engine(random_device()()));
-	
+
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
 	FillWithEmpty(cavablar, suallar->size()); // sual sayi qeder ' bosh ' doldurur
@@ -34,7 +34,7 @@ void Play(shared_ptr<Quiz> quiz)
 		cout << "\n\t\t" << sual->Get_Question() << endl; SetColor(dft);
 
 		if (q_index == 0) ignoreIndex = 2;
-		else if (q_index == (q_count-1)) ignoreIndex = 1;
+		else if (q_index == (q_count - 1)) ignoreIndex = 1;
 
 		ShowMenu_v(choose5, menuForPlay, ignoreIndex);
 		ignoreIndex = -2;
@@ -107,7 +107,7 @@ void Play(shared_ptr<Quiz> quiz)
 						duzSayi++;
 					else if (cavablar[c_index] == "_empty_")
 						boshSayi++;
-					else 
+					else
 						sehvSayi++;
 
 					c_index++;
@@ -115,12 +115,12 @@ void Play(shared_ptr<Quiz> quiz)
 
 				cout << "\n\n\tUsername : " << gUserName << endl;
 				cout << "\n\tQuiz Name : " << quizName << endl;
-				cout << "\n\tDogru Cavablarin Sayi : "<< duzSayi << endl;
-				cout << "\n\tSehv Cavablarin Sayi : "<< sehvSayi << endl;
+				cout << "\n\tDogru Cavablarin Sayi : " << duzSayi << endl;
+				cout << "\n\tSehv Cavablarin Sayi : " << sehvSayi << endl;
 				cout << "\n\tBosh Cavablarin Sayi : " << boshSayi << endl << endl;
 
 				Player* pl = new Player(gUserName, quizName, duzSayi, sehvSayi, boshSayi);
-				
+
 				PlayerDatabase* PlDb = new PlayerDatabase(Folder + Players);
 
 				PlDb->addPlayer(pl);
@@ -224,6 +224,8 @@ void Admin_Menu()
 						{
 							newQuiz->WriteAllQuestions();
 							SaveQuizNameToDB(string(Folder + QuizNames), *(newQuiz->Get_QuizName()));
+							LoadingScreen("Creating", 50, 3);
+
 							break;
 						}
 					}
@@ -235,7 +237,9 @@ void Admin_Menu()
 				vector<string> quizzes{ " ->~ Exit ~<- (not quiz) " };
 
 				GetQuizNamesFromDB(string(Folder + QuizNames), quizzes);
-				
+
+				LoadingScreen("Starting", 55, 3);
+
 				while (true)
 				{
 					system("cls");
@@ -267,7 +271,31 @@ void Admin_Menu()
 				playerDB->ReadAllPlayers();
 
 				list<Player*> players = playerDB->Get_Players();
-				
+
+				for (auto player : players)
+				{
+					if (player->Get_Username() == gUserName)
+					{
+						player->Show(false);
+					}
+				}
+
+				SetColor(11);
+				cout << "\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
+				SetColor(dft); cin.get();
+
+				if (playerDB != nullptr) { delete playerDB; playerDB = nullptr; }
+			}
+			else if (choose2 == 3)
+			{
+				LoadingScreen("Updating", 65, 2);
+
+				PlayerDatabase* playerDB = new PlayerDatabase(Folder + Players);
+
+				playerDB->ReadAllPlayers();
+
+				list<Player*> players = playerDB->Get_Players();
+
 				for (auto player : players)
 				{
 					if (player->Get_Username() == gUserName)
@@ -283,11 +311,6 @@ void Admin_Menu()
 				if (playerDB != nullptr) { delete playerDB; playerDB = nullptr; }
 
 
-			}
-			else if (choose2 == 3)
-			{
-
-				//vector ilk 10 show
 			}
 			else if (choose2 == 4)
 			{
@@ -379,6 +402,7 @@ string Login_Menu()
 
 						appUserDB->WriteEndUser();
 
+						LoadingScreen("User Adding", 50, 10);
 						SetConsoleTextAttribute(h, 12);
 						cout << "\n\tUser Elave Olundu.\n\n"; system("pause");
 						SetConsoleTextAttribute(h, dft);
