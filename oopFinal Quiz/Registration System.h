@@ -53,6 +53,7 @@ void Play(shared_ptr<Quiz> quiz)
 					(*A).Get_Answer3(), (*A).Get_Answer4() };
 
 				//Shuffle(variantlar);
+
 				int key6, choose6 = 0;
 
 				while (true)
