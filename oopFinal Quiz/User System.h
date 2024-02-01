@@ -11,7 +11,7 @@ class User
 
 public:
 
-	User(){}
+	User() {}
 	User(string username, string password, string name, string surname, string access)
 	{
 		this->Set_Username(username);
@@ -144,7 +144,7 @@ public:
 	{
 		this->_fileName = file;
 	}
-	
+
 	string GetFileName()const
 	{
 		return this->_fileName;
@@ -304,6 +304,7 @@ class Player
 	int* _correctCount = nullptr; // duzgun cavablarin sayi
 	int* _wrongCount = nullptr; // sehv cavablarin sayi
 	int* _emptyCount = nullptr; // bosh (cavab verilmeyen) cavablarin sayi
+	double* _successRate = nullptr; // duzgun cavablarin butun cavablara nisbeti . faiz ile
 
 public:
 
@@ -315,6 +316,7 @@ public:
 		this->Set_EmptyCount(emptyCount);
 		this->Set_WrongCount(wrongCount);
 		this->Set_TotalCount();
+		this->Set_SuccessRate();
 	}
 	Player(const Player& player)
 		: Player(*(player._username), *(player._playedQuiz), *(player._correctCount), *(player._wrongCount), *(player._emptyCount))
@@ -351,6 +353,11 @@ public:
 			delete this->_emptyCount;
 			this->_emptyCount = nullptr;
 		}
+		if (this->_successRate != nullptr)
+		{
+			delete this->_successRate;
+			this->_successRate = nullptr;
+		}
 	}
 
 	Player& operator=(const Player& player)
@@ -361,6 +368,9 @@ public:
 		this->Set_EmptyCount(*(player._emptyCount));
 		this->Set_WrongCount(*(player._wrongCount));
 		this->Set_TotalCount();
+		this->Set_SuccessRate();
+
+		return (*this);
 	}
 
 	void Set_CorrectCount(int correctCount)
@@ -392,12 +402,21 @@ public:
 	}
 	void Set_TotalCount()
 	{
-		if(_correctCount == nullptr || _wrongCount == nullptr || _emptyCount == nullptr)
+		if (_correctCount == nullptr || _wrongCount == nullptr || _emptyCount == nullptr)
 			throw InvalidArgumentException("\n Any Count is Nullptr ! ", GetTime(), __FILE__, __LINE__);
 
 		if (this->_totalCount != nullptr) delete this->_totalCount;
 
 		this->_totalCount = new int((*_correctCount) + (*_wrongCount) + (*_emptyCount));
+	}
+	void Set_SuccessRate()
+	{
+		if (_totalCount == nullptr)
+			throw InvalidArgumentException("\n Total Count is Nullptr ! ", GetTime(), __FILE__, __LINE__);
+
+		if (this->_successRate != nullptr) delete this->_successRate;
+
+		this->_successRate = new double((*_correctCount / *_totalCount) * 100);
 	}
 	void Set_Username(string username)
 	{
@@ -418,10 +437,11 @@ public:
 		this->_playedQuiz = new string(quiz);
 	}
 
-	int Get_CorrectCount() { return *_totalCount; }
-	int Get_WrongCount() { return *_correctCount; }
-	int Get_EmptyCount() { return *_wrongCount; }
-	int Get_TotalCount() { return *_emptyCount; }
+	int Get_CorrectCount() { return *_correctCount; }
+	int Get_WrongCount() { return *_wrongCount; }
+	int Get_EmptyCount() { return *_emptyCount; }
+	int Get_TotalCount() { return *_totalCount; }
+	double Get_SuccessRate() { return *_successRate; }
 	string Get_Username() { return *_username; }
 	string Get_PlayedQuizName() { return *_playedQuiz; }
 
@@ -429,13 +449,14 @@ public:
 	{
 		SetColor(12); cout << endl;
 
-		if(show_name) cout << "\nUsername : " << *_username << " | \n\n";
+		if (show_name) cout << "\nUsername : " << *_username << " | \n\n";
 
 		cout << "Played Quiz Name : " << *_playedQuiz << " | \n\n";
 		cout << "Total Answer Count : " << *_totalCount << " | \n";
 		cout << "Correct Count : " << *_correctCount << " | \n";
 		cout << "Wrong Count : " << *_wrongCount << " | \n";
-		cout << "Empty Count : " << *_emptyCount << endl << endl;
+		cout << "Empty Count : " << *_emptyCount << " | \n";
+		cout << "Success Rate : " << *_successRate << endl << endl;
 		SetColor(dft);
 	}
 
@@ -484,8 +505,11 @@ public:
 	{
 		for (auto player : _players)
 		{
-			delete player;
-			player = nullptr;
+			if (player != nullptr)
+			{
+				delete player;
+				player = nullptr;
+			}
 		}
 		_players.clear();
 	}
@@ -556,8 +580,8 @@ public:
 
 		while (!file.eof())
 		{
-			getline(file, index, '|'); 
-			if (!file.eof()) _endPlayer++; 
+			getline(file, index, '|');
+			if (!file.eof()) _endPlayer++;
 		}
 		file.close();
 	}
@@ -572,7 +596,8 @@ public:
 				GetTime(), __FILE__, __LINE__);
 		}
 
-		string index = "", username = "", playedQuiz = "", total = "", correct = "", wrong = "", empty = "";
+		string index = "", username = "", playedQuiz = "", total = "";
+		string succesRate = "", correct = "", wrong = "", empty = "";
 
 		this->Delete_AllPlayers(); _endPlayer = 0;
 
@@ -585,6 +610,7 @@ public:
 				_endPlayer++;
 				getline(file, username, '|');
 				getline(file, playedQuiz, '|');
+				getline(file, succesRate, '|');
 				getline(file, total, '|');
 				getline(file, correct, '|');
 				getline(file, wrong, '|');
@@ -613,6 +639,7 @@ public:
 			file << (++_endPlayer) << ".|"
 				<< (us)->Get_Username() << "|"
 				<< (us)->Get_PlayedQuizName() << "|"
+				<< (us)->Get_SuccessRate() << "|"
 				<< (us)->Get_TotalCount() << "|"
 				<< (us)->Get_CorrectCount() << "|"
 				<< (us)->Get_WrongCount() << "|"

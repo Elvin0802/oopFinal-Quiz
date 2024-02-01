@@ -129,6 +129,8 @@ void Play(shared_ptr<Quiz> quiz)
 
 				if (sual != nullptr) { delete sual; sual = nullptr; }
 				if (PlDb != nullptr) { delete PlDb; PlDb = nullptr; }
+
+				return;
 			}
 		}
 	}
@@ -234,7 +236,7 @@ void Admin_Menu()
 			else if (choose2 == 1)
 			{
 				int key4, choose4 = 0;
-				vector<string> quizzes{ " ->~ Exit ~<- (not quiz) " };
+				vector<string> quizzes{ " ->~  Exit  ~<- (not quiz) " };
 
 				GetQuizNamesFromDB(string(Folder + QuizNames), quizzes);
 
@@ -244,7 +246,7 @@ void Admin_Menu()
 				{
 					system("cls");
 
-					printf("\n\t\t\tSelect Quiz For Starting.\n");
+					printf("\n\t\t\tSelect Quiz For Starting.\n\n");
 
 					ShowMenu_v(choose4, quizzes);
 
@@ -256,13 +258,14 @@ void Admin_Menu()
 					}
 					else if (key4 == 13)
 					{
-						if (quizzes.at(choose4) == " ->~ Exit ~<- (not quiz) ")
+						if (quizzes.at(choose4) == " ->~  Exit  ~<- (not quiz) ")
 							break;
 
 						shared_ptr<Quiz> playingQuiz(new Quiz(quizzes.at(choose4)));
 						playingQuiz->ReadAllQuestions();
 
 						Play(playingQuiz);
+						break;
 					}
 
 				}
@@ -284,7 +287,7 @@ void Admin_Menu()
 				}
 
 				SetColor(11);
-				cout << "\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
+				cout << "\n\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
 				SetColor(dft); cin.get();
 
 				if (playerDB != nullptr) { delete playerDB; playerDB = nullptr; }
@@ -293,7 +296,7 @@ void Admin_Menu()
 			{
 				LoadingScreen("Updating", 65, 2);
 
-				int key8, choose8 = 0; 
+				int key8, choose8 = 0;
 				string quizName = " ->~ Exit ~<- (not quiz) ";
 				vector<string> show_quizzes{ quizName };
 
@@ -302,6 +305,9 @@ void Admin_Menu()
 				while (true)
 				{
 					system("cls");
+
+					printf("\n\t\tSelect Quiz For Show Special Leader Board.\n\n");
+
 					ShowMenu_v(choose8, show_quizzes);
 
 					key8 = _getch();
@@ -315,26 +321,19 @@ void Admin_Menu()
 						if (show_quizzes.at(choose8) == " ->~ Exit ~<- (not quiz) ")
 							break;
 
-						quizName = show_quizzes.at(choose8);						
+						quizName = show_quizzes.at(choose8);
+						break;
 					}
-
 				}
+				
+				PlayerDatabase* plDb = new PlayerDatabase(Folder + Players);
+				plDb->ReadAllPlayers();
 
-
-
-				PlayerDatabase* playerDB = new PlayerDatabase(Folder + Players);
-
-				playerDB->ReadAllPlayers();
-
-				list<Player*> players = playerDB->Get_Players();
+				list<Player*> players = plDb->Get_Players();
 
 				for (auto player : players)
-				{
-					if (player->Get_Username() == gUserName)
-					{
-						player->Show(false);
-					}
-				}
+					player->Show(false);
+				
 
 				SetColor(11);
 				cout << "\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
