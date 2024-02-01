@@ -325,20 +325,20 @@ void Admin_Menu()
 						break;
 					}
 				}
-				
+
 				PlayerDatabase* plDb = new PlayerDatabase(Folder + Players);
 				plDb->ReadAllPlayers();
 
 				list<Player*> players = plDb->Get_Players();
 
-				players.sort(ComparePlayersBySuccessRate);		
+				players.sort(ComparePlayersBySuccessRate);
 
 				int END = 1;
 				for (auto P : players)
 				{
-					if (END == 10) 
+					if (END == 10)
 						break;
-					if (P != nullptr && (P->Get_PlayedQuizName() == quizName)) 
+					if (P != nullptr && (P->Get_PlayedQuizName() == quizName))
 						P->Show(true);
 
 					END++;
