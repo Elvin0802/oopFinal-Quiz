@@ -75,7 +75,7 @@ void SaveQuizNameToDB(string dbName, string qName)
 }
 
 // Get Quiz Names From DataBase (File).
-auto GetQuizNamesFromDB(string dbName)
+void GetQuizNamesFromDB(string dbName, vector<string>& Vector)
 {
 	ifstream file(dbName, ios::in);
 
@@ -84,7 +84,6 @@ auto GetQuizNamesFromDB(string dbName)
 		throw Exception("\nFile Achilmadi.",
 			GetTime(), __FILE__, __LINE__);
 	}
-	vector<string> quizNames;
 
 	string index = "", q_name = "";
 
@@ -94,11 +93,10 @@ auto GetQuizNamesFromDB(string dbName)
 		if (!file.eof())
 		{
 			file >> q_name;
-			quizNames.push_back(q_name);
+			Vector.push_back(q_name);
 		}
 	}
 	file.close();
-	return quizNames;
 }
 
 // Show Vector Menu Elements with Colored Choose.

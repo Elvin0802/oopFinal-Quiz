@@ -232,8 +232,10 @@ void Admin_Menu()
 			else if (choose2 == 1)
 			{
 				int key4, choose4 = 0;
-				auto quizzes = GetQuizNamesFromDB(string(Folder + QuizNames));
+				vector<string> quizzes{ " ->~ Exit ~<- (not quiz) " };
 
+				GetQuizNamesFromDB(string(Folder + QuizNames), quizzes);
+				
 				while (true)
 				{
 					system("cls");
@@ -247,11 +249,14 @@ void Admin_Menu()
 					}
 					else if (key4 == 13)
 					{
+						if (quizzes.at(choose4) == " ->~ Exit ~<- (not quiz) ")
+							break;
+
 						shared_ptr<Quiz> playingQuiz(new Quiz(quizzes.at(choose4)));
 						playingQuiz->ReadAllQuestions();
 
 						Play(playingQuiz);
-}
+					}
 
 				}
 			}
