@@ -620,7 +620,7 @@ public:
 		file.close();
 	}
 
-	void WriteEndPlayer() 
+	void WriteEndPlayer()
 	{
 		ofstream file(_fileName, ios::app);
 

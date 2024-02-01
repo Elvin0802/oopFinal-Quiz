@@ -127,10 +127,9 @@ void Play(shared_ptr<Quiz> quiz)
 				PlDb->ReadEndPlayerIndex();
 				PlDb->WriteEndPlayer();
 
-				if (sual != nullptr) { delete sual; sual = nullptr; }
 				if (PlDb != nullptr) { delete PlDb; PlDb = nullptr; }
-
 				DeleteAllItemsInList(suallar);
+
 				return;
 			}
 		}
@@ -332,14 +331,24 @@ void Admin_Menu()
 
 				list<Player*> players = plDb->Get_Players();
 
-				//players.sort();
-				
+				players.sort(ComparePlayersBySuccessRate);		
+
+				int END = 1;
+				for (auto P : players)
+				{
+					if (END == 10) 
+						break;
+					if (P != nullptr && (P->Get_PlayedQuizName() == quizName)) 
+						P->Show(true);
+
+					END++;
+				}
 
 				SetColor(11);
 				cout << "\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
 				SetColor(dft); cin.get();
 
-				if (playerDB != nullptr) { delete playerDB; playerDB = nullptr; }
+				if (plDb != nullptr) { delete plDb; plDb = nullptr; }
 
 
 			}
