@@ -34,8 +34,8 @@ void FillWithEmpty(vector<string>& _Vector, size_t _count)
 void DeleteItemsInList()
 {
 
-}
 
+}
 
 // Shuffle with random engine ( only work with Collection )
 //template<typename T>

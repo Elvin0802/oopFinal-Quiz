@@ -493,6 +493,7 @@ public:
 			_players.push_back(new Player(*u));
 
 		_endPlayer = other._endPlayer;
+
 		return (*this);
 	}
 
