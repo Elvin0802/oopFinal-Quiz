@@ -5,7 +5,8 @@ void Play(shared_ptr<Quiz> quiz)
 {
 	auto suallar = (*quiz).Get_Questions();
 	//Shuffle(suallar);
-
+	//shuffle(suallar->begin(), suallar->end(),default_random_engine(random_device()()));
+	
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
 	FillWithEmpty(cavablar, suallar->size()); // sual sayi qeder ' bosh ' doldurur
@@ -53,6 +54,7 @@ void Play(shared_ptr<Quiz> quiz)
 					(*A).Get_Answer3(), (*A).Get_Answer4() };
 
 				//Shuffle(variantlar);
+
 
 				int key6, choose6 = 0;
 
@@ -120,10 +122,11 @@ void Play(shared_ptr<Quiz> quiz)
 				Player* pl = new Player(gUserName, quizName, duzSayi, sehvSayi, boshSayi);
 				
 				PlayerDatabase* PlDb = new PlayerDatabase(Folder + Players);
+
 				PlDb->addPlayer(pl);
+				PlDb->ReadEndPlayerIndex();
 				PlDb->WriteEndPlayer();
 
-				if (pl != nullptr) { delete pl; pl = nullptr; }
 				if (sual != nullptr) { delete sual; sual = nullptr; }
 				if (PlDb != nullptr) { delete PlDb; PlDb = nullptr; }
 			}

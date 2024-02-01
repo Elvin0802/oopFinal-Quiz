@@ -542,6 +542,26 @@ public:
 		return false;
 	}
 
+	void ReadEndPlayerIndex()
+	{
+		ifstream file(_fileName, ios::in);
+
+		if (!file.is_open())
+		{
+			throw Exception("\nFile Achilmadi.",
+				GetTime(), __FILE__, __LINE__);
+		}
+
+		string index = ""; _endPlayer = 0;
+
+		while (!file.eof())
+		{
+			getline(file, index, '|'); 
+			if (!file.eof()) _endPlayer++; 
+		}
+		file.close();
+	}
+
 	void ReadAllPlayers()
 	{
 		ifstream file(_fileName, ios::in);
