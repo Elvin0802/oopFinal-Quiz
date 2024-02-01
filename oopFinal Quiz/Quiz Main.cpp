@@ -18,15 +18,16 @@ HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE); // for change (set) Color
 /*--------->>  App File Destinations  <<-----------*/
 string txt = ".txt";
 string Folder = "txt Files/";
+string QuizFolder = "Quiz-ler/";
 string Users = "Users.txt";
 string QuizNames = "Quiz Names.txt";
 string Players = "Players.txt";
 /*--------------------------------------------------*/
 
 
-/*--------------------------------------------------*/
+/*-------------------------*/
 string gUserName = "";
-/*--------------------------------------------------*/  
+/*-------------------------*/  
 
 /*******  Application Headers  ********/
 

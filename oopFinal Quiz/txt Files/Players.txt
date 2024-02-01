@@ -1,1 +1,7 @@
 1.|yuppi|Werty|0|3|0|3
+2.|admin|Yaprak|0|4|0|4
+3.|admin|Yaprak|0|4|0|4
+4.|admin|Yaprak|3|2|0|1
+5.|admin|Yaprak|0|4|0|4
+6.|admin|Yaprak|1|4|2|5
+7.|admin|Yaprak|0|4|0|4

@@ -50,7 +50,7 @@ public:
 
 		if (this->_fileName != nullptr) delete this->_fileName;
 
-		this->_fileName = new string(Folder + FileName);
+		this->_fileName = new string(Folder + QuizFolder + FileName);
 	}
 
 	string* Get_QuizName() const { return this->_quizName; }
