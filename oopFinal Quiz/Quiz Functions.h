@@ -53,7 +53,7 @@ void DeleteAllItemsInList(list<Question*>*& _list)
 // Compared By High to Low.
 bool ComparePlayersBySuccessRate(const Player* first, const Player* second)
 {
-	return first->Get_SuccessRate() < second->Get_SuccessRate();
+	return first->Get_SuccessRate() > second->Get_SuccessRate();
 }
 
 

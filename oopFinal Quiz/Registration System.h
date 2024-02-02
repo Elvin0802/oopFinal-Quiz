@@ -220,11 +220,24 @@ void Main_Menu(bool isAdmin)
 								}
 							} while (correctAnswer == "");
 
-							Answers* answers = new Answers(answer1, answer2, answer3, answer4, correctAnswer);
+							Answers* answers = nullptr;
 
-							newQuiz->AddQuestion(new Question(question, answers));
+							try
+							{
+								answers = new Answers(answer1, answer2, answer3, answer4, correctAnswer);
 
-							delete answers;
+								newQuiz->AddQuestion(new Question(question, answers));
+							}
+							catch(Exception& ex)
+							{
+								SetColor(4); cout << endl << ex.Get_Message() << endl;
+								SetColor(dft); system("pause");
+							}
+
+							if(answers != nullptr)
+							{
+								delete answers; answers = nullptr;
+							}
 						}
 						else if (choose3 == 1)
 						{

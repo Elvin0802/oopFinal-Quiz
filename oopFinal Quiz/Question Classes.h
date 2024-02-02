@@ -89,7 +89,9 @@ public:
 
 	void Set_Question(string question)
 	{
-		if (question == "" || question == " ")
+		size_t check = count(question.begin(), question.end(), ' ');
+
+		if (question == "" || check == question.size())
 			throw Exception("\nSual Bosh Olmamalidir.\nSuali Duzgun Daxil Edin !\n",
 				GetTime(), __FILE__, __LINE__);
 

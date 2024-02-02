@@ -1,0 +1,9 @@
+1.>s1 c1?>1>2>3>4>1
+2.>s2?>c3>s2>c4>c5>s2
+3.>s3?>a1>a2>a3>s3>s3
+4.>gfd?>1>2>3>gfd>gfd
+5.>poi?>44>33>22>poi11>poi11
+6.>Lab?>sab>qab>laba>baba>laba
+7.>porsa?>p>o>r>por>por
+8.>9 nedir?>req>herf>doqquz>sekkiz>doqquz
+9.>cavab 2dir?>1>2>3>4>2
