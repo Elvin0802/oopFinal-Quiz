@@ -4,7 +4,7 @@
 void Play(shared_ptr<Quiz> quiz)
 {
 	list<Question*>* suallar = (*quiz).Get_Questions();
-	_shuffle(*suallar);// suallari shuffle edir.
+	_shuffle(*suallar); // suallari shuffle edir.
 
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
@@ -13,7 +13,7 @@ void Play(shared_ptr<Quiz> quiz)
 	int key5, choose5 = 0;  // for show menu
 	size_t q_index = 0; //for show question 
 	size_t q_count = suallar->size();  // for update index
-	int ignoreIndex = -2; // for show or dont show - next and prev.
+	// bool isChangeNext = true, isChangePrev = true;
 
 	vector<string> menuForPlay{ " To Answer ", " Next ", " Previous ", " Submit " };
 
@@ -30,11 +30,21 @@ void Play(shared_ptr<Quiz> quiz)
 
 		cout << "\n\t\t\t" << sual->Get_Question() << endl; SetColor(dft);
 
-		if (q_index == 0) ignoreIndex = 2;
-		else if (q_index == (q_count - 1)) ignoreIndex = 1;
+	/*
+	if (q_index == 0 && isChangeNext)
+		{
+			menuForPlay[2] = menuForPlay[3];
+			menuForPlay.pop_back();
+		}
+		else if (q_index == (q_count - 1))
+		{
+			menuForPlay[1] = menuForPlay[2];
+			menuForPlay[2] = menuForPlay[3];
+			menuForPlay.pop_back();
+		}
+		*/
 
-		ShowMenu_v(choose5, menuForPlay, ignoreIndex);
-		ignoreIndex = -2;
+		ShowMenu_v(choose5, menuForPlay);
 
 		key5 = _getch();
 		if (key5 > 96)
@@ -44,7 +54,7 @@ void Play(shared_ptr<Quiz> quiz)
 		}
 		else if (key5 == 13)
 		{
-			if (choose5 == 0)
+			if (menuForPlay[choose5] == " To Answer ")
 			{
 				shared_ptr<Answers> A(sual->Get_Answers()); // hazirki sualin cavablari
 				vector<string> variantlar{ (*A).Get_Answer1(), (*A).Get_Answer2(),
@@ -82,15 +92,15 @@ void Play(shared_ptr<Quiz> quiz)
 					}
 				}
 			}
-			else if (choose5 == 1)
+			else if (menuForPlay[choose5] == " Next ")
 			{
 				if (q_index < (q_count - 1)) q_index++;
 			}
-			else if (choose5 == 2)
+			else if (menuForPlay[choose5] == " Previous ")
 			{
 				if (q_index > 0) q_index--;
 			}
-			else if (choose5 == 3)
+			else if (menuForPlay[choose5] == " Submit ")
 			{
 				string corAnswer = "", quizName = *((*quiz).Get_QuizName());
 				int c_index = 0, duzSayi = 0, sehvSayi = 0, boshSayi = 0;

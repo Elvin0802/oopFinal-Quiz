@@ -8,3 +8,4 @@
 --> qwerp
 --> Yarpaq
 --> Lada
+--> Quiz-1.0

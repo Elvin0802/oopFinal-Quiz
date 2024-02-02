@@ -100,16 +100,13 @@ void GetQuizNamesFromDB(string dbName, vector<string>& Vector)
 }
 
 // Show Vector Menu Elements with Colored Choose.
-void ShowMenu_v(int Choose, const vector<string>& Vector, int _ignore = -1)
+void ShowMenu_v(int Choose, const vector<string>& Vector)
 {
 	size_t end = Vector.size();
 
 	cout << "\n\n\n";
 	for (size_t sl = 0; sl < end; sl++)
 	{
-		if (sl == _ignore)
-			continue;
-
 		if (Choose == sl)
 		{
 			SetColor(3);
