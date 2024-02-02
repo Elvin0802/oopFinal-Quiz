@@ -7,3 +7,4 @@
 --> yerturk
 --> qwerp
 --> Yarpaq
+--> Lada

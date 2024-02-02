@@ -3,12 +3,8 @@
 
 void Play(shared_ptr<Quiz> quiz)
 {
-	srand(time(NULL));
 	list<Question*>* suallar = (*quiz).Get_Questions();
-	// Shuffle(suallar);
-	// shuffle(suallar->begin(), suallar->end(),default_random_engine(random_device()()));
-	
-	//random_shuffle(suallar->begin(), suallar->end());
+	_shuffle(*suallar);// suallari shuffle edir.
 
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
@@ -54,8 +50,7 @@ void Play(shared_ptr<Quiz> quiz)
 				vector<string> variantlar{ (*A).Get_Answer1(), (*A).Get_Answer2(),
 					(*A).Get_Answer3(), (*A).Get_Answer4() };
 
-				//Shuffle(variantlar);
-
+				_shuffle(variantlar);
 
 				int key6, choose6 = 0;
 
@@ -227,13 +222,13 @@ void Main_Menu(bool isAdmin)
 
 								newQuiz->AddQuestion(new Question(question, answers));
 							}
-							catch(Exception& ex)
+							catch (Exception& ex)
 							{
 								SetColor(4); cout << endl << ex.Get_Message() << endl;
 								SetColor(dft); Pause();
 							}
 
-							if(answers != nullptr)
+							if (answers != nullptr)
 							{
 								delete answers; answers = nullptr;
 							}

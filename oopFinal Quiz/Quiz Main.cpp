@@ -1,11 +1,11 @@
 #include <iostream>
 #include <Windows.h>
+#include <algorithm>
 #include <vector>
 #include <list>
 #include <random>
 #include <string>
 #include <fstream>
-#include <algorithm>
 #include <conio.h>
 #include <memory>
 

@@ -56,23 +56,31 @@ bool ComparePlayersBySuccessRate(const Player* first, const Player* second)
 	return first->Get_SuccessRate() > second->Get_SuccessRate();
 }
 
+// suffle Question List
+void _shuffle(list<Question*>& _list) 
+{
+	random_device rd;
+	mt19937 rng(rd());
 
+	for (auto i = prev(_list.end()); i != _list.begin(); --i) 
+	{
+		uniform_int_distribution<int> distribution(0,distance(_list.begin(), i));
+		int j = distribution(rng);
 
+		iter_swap(i, next(_list.begin(), j));
+	}
+}
+// suffle list overloading.
+void _shuffle(vector<string>& _vector)
+{
+	random_device rd;
+	mt19937 rng(rd());
 
-// Shuffle with random engine ( only work with Collection )
-//template<typename T>
-//void Shuffle(T Collection)
-//{
-//	try
-//	{
-//		random_device AppRandomGenerator;
-//
-//		mt19937 e(AppRandomGenerator());
-//
-//		shuffle(Collection->begin(), Collection->end(), e);
-//	}
-//	catch (...)
-//	{
-//		return;
-//	}
-//}
+	for (auto i = prev(_vector.end()); i != _vector.begin(); --i)
+	{
+		uniform_int_distribution<int> distribution(0,distance(_vector.begin(), i));
+		int j = distribution(rng);
+
+		iter_swap(i, next(_vector.begin(), j));
+	}
+}

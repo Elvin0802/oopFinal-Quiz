@@ -444,7 +444,7 @@ public:
 	string Get_Username() const { return *_username; }
 	string Get_PlayedQuizName() const { return *_playedQuiz; }
 
-	void Show(bool show_name,bool show_quiz_name) const
+	void Show(bool show_name, bool show_quiz_name) const
 	{
 		SetColor(12);
 
