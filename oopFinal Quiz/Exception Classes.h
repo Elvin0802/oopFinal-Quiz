@@ -37,37 +37,3 @@ public:
 	}
 
 };
-
-
-class DatabaseException : public Exception
-{
-	string _text = "\n\t>>>>  Database Exception  <<<<\n";
-
-public:
-
-	DatabaseException(string Text, string Time, string Source, size_t Line)
-		: Exception(Text, Time, Source, Line)
-	{}
-
-	char const* what() const override
-	{
-		return (_text + Exception::Get_Message()).c_str();
-	}
-};
-
-
-class InvalidArgumentException : public Exception
-{
-	string _text = "\n\t>>>>  Invalid Argument Exception  <<<<\n";
-
-public:
-
-	InvalidArgumentException(string Text, string Time, string Source, size_t Line)
-		: Exception(Text, Time, Source, Line)
-	{}
-
-	char const* what() const override
-	{
-		return (_text + Exception::Get_Message()).c_str();
-	}
-};

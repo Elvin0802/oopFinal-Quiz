@@ -37,7 +37,7 @@ public:
 	void Set_Username(string username)
 	{
 		if (username.length() < 3)
-			throw InvalidArgumentException("\nUsername Herf Sayi 3-dan Chox Olmalidir.",
+			throw Exception("\nUsername Herf Sayi 3-dan Chox Olmalidir.",
 				GetTime(), __FILE__, __LINE__);
 
 		this->_username = username;
@@ -45,7 +45,7 @@ public:
 	void Set_Password(string password)
 	{
 		if (password.length() < 3)
-			throw InvalidArgumentException("\nPassword Herf Sayi 3-dan Chox Olmalidir.",
+			throw Exception("\nPassword Herf Sayi 3-dan Chox Olmalidir.",
 				GetTime(), __FILE__, __LINE__);
 
 		this->_password = password;
@@ -53,7 +53,7 @@ public:
 	void Set_Name(string name)
 	{
 		if (name.length() < 2)
-			throw InvalidArgumentException("\nAdin Herf Sayi 2-dan Chox Olmalidir.",
+			throw Exception("\nAdin Herf Sayi 2-dan Chox Olmalidir.",
 				GetTime(), __FILE__, __LINE__);
 
 		this->_name = name;
@@ -61,7 +61,7 @@ public:
 	void Set_Surname(string surname)
 	{
 		if (surname.length() < 2)
-			throw InvalidArgumentException("\nSoyadin Herf Sayi 2-dan Chox Olmalidir.",
+			throw Exception("\nSoyadin Herf Sayi 2-dan Chox Olmalidir.",
 				GetTime(), __FILE__, __LINE__);
 
 		this->_surname = surname;
@@ -373,7 +373,7 @@ public:
 	void Set_CorrectCount(int correctCount)
 	{
 		if (correctCount < 0)
-			throw InvalidArgumentException("\n Count Menfi Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+			throw Exception("\n Count Menfi Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
 
 		if (this->_correctCount != nullptr) delete this->_correctCount;
 
@@ -382,7 +382,7 @@ public:
 	void Set_WrongCount(int wrongCount)
 	{
 		if (wrongCount < 0)
-			throw InvalidArgumentException("\n Count Menfi Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+			throw Exception("\n Count Menfi Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
 
 		if (this->_wrongCount != nullptr) delete this->_wrongCount;
 
@@ -391,7 +391,7 @@ public:
 	void Set_EmptyCount(int emptyCount)
 	{
 		if (emptyCount < 0)
-			throw InvalidArgumentException("\n Count Menfi Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+			throw Exception("\n Count Menfi Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
 
 		if (this->_emptyCount != nullptr) delete this->_emptyCount;
 
@@ -400,7 +400,7 @@ public:
 	void Set_TotalCount()
 	{
 		if (_correctCount == nullptr || _wrongCount == nullptr || _emptyCount == nullptr)
-			throw InvalidArgumentException("\n Any Count is Nullptr ! ", GetTime(), __FILE__, __LINE__);
+			throw Exception("\n Any Count is Nullptr ! ", GetTime(), __FILE__, __LINE__);
 
 		if (this->_totalCount != nullptr) delete this->_totalCount;
 
@@ -409,7 +409,7 @@ public:
 	void Set_SuccessRate()
 	{
 		if (_totalCount == nullptr)
-			throw InvalidArgumentException("\n Total Count is Nullptr ! ", GetTime(), __FILE__, __LINE__);
+			throw Exception("\n Total Count is Nullptr ! ", GetTime(), __FILE__, __LINE__);
 
 		if (this->_successRate != nullptr) delete this->_successRate;
 
@@ -420,7 +420,7 @@ public:
 	void Set_Username(string username)
 	{
 		if (username.length() < 3)
-			throw InvalidArgumentException("\n Len 4-den Kichik Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+			throw Exception("\n Len 4-den Kichik Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
 
 		if (this->_username != nullptr) delete this->_username;
 
@@ -429,7 +429,7 @@ public:
 	void Set_PlayedQuizName(string quiz)
 	{
 		if (quiz.length() < 2)
-			throw InvalidArgumentException("\n Len 3-den Kichik Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
+			throw Exception("\n Len 3-den Kichik Ola Bilmez ! ", GetTime(), __FILE__, __LINE__);
 
 		if (this->_playedQuiz != nullptr) delete this->_playedQuiz;
 
@@ -451,7 +451,7 @@ public:
 		if (show_name) cout << " Username : " << *_username << "\n";
 		if (show_quiz_name) cout << " Played Quiz Name : " << *_playedQuiz << "\n";
 
-		cout << "\t\tTotal : " << *_totalCount << " | ";
+		cout << "\tTotal : " << *_totalCount << " | ";
 		cout << "Correct : " << *_correctCount << " | ";
 		cout << "Wrong : " << *_wrongCount << " | ";
 		cout << "Empty : " << *_emptyCount << " | ";
@@ -580,7 +580,7 @@ public:
 
 		while (!file.eof())
 		{
-			getline(file, index, '|');
+			getline(file, index);
 			if (!file.eof()) _endPlayer++;
 		}
 		file.close();

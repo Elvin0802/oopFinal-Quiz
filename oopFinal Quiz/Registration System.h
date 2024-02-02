@@ -164,7 +164,7 @@ void Main_Menu(bool isAdmin)
 		}
 		else if (key2 == 13)
 		{
-			if (choose2 == 0)
+			if (menuForMain[choose2] == " Create New Quiz ")
 			{
 				string quiz_name;
 
@@ -242,7 +242,7 @@ void Main_Menu(bool isAdmin)
 					}
 				}
 			}
-			else if (choose2 == 1)
+			else if (menuForMain[choose2] == " Start Quiz ")
 			{
 				int key4, choose4 = 0;
 				vector<string> quizzes{ " ->~  Exit  ~<- (not quiz) " };
@@ -279,7 +279,7 @@ void Main_Menu(bool isAdmin)
 
 				}
 			}
-			else if (choose2 == 2)
+			else if (menuForMain[choose2] == " Show My Score ")
 			{
 				PlayerDatabase* playerDB = new PlayerDatabase(Folder + Players);
 
@@ -302,7 +302,7 @@ void Main_Menu(bool isAdmin)
 
 				if (playerDB != nullptr) { delete playerDB; playerDB = nullptr; }
 			}
-			else if (choose2 == 3)
+			else if (menuForMain[choose2] == " Leaders Board ")
 			{
 				LoadingScreen("Updating", 45, 2);
 
@@ -365,158 +365,7 @@ void Main_Menu(bool isAdmin)
 
 				if (plDb != nullptr) { delete plDb; plDb = nullptr; }
 			}
-			else if (choose2 == 4)
-			{
-				break;
-			}
-		}
-	}
-
-}
-
-
-void Guest_Menu()
-{
-	int key2, choose2 = 0;
-	vector<string> menuForMain{ " Start Quiz " ," Show My Score " ," Leaders Board "," Exit " };
-
-	while (true)
-	{
-		system("cls");
-		ShowMenu_v(choose2, menuForMain);
-
-		key2 = _getch();
-		if (key2 > 96)
-		{
-			if (key2 == 224)key2 = _getch();
-			choose2 = KeyCheck(key2, choose2, 0, (menuForMain.size() - 1));
-		}
-		else if (key2 == 13)
-		{
-			if (choose2 == 0)
-			{
-				int key4, choose4 = 0;
-				vector<string> quizzes{ " ->~  Exit  ~<- (not quiz) " };
-
-				GetQuizNamesFromDB(string(Folder + QuizNames), quizzes);
-
-				LoadingScreen("Starting", 35, 3);
-
-				while (true)
-				{
-					system("cls");
-
-					printf("\n\t\t\tSelect Quiz For Starting.\n\n");
-
-					ShowMenu_v(choose4, quizzes);
-
-					key4 = _getch();
-					if (key4 > 96)
-					{
-						if (key4 == 224) key4 = _getch();
-						choose4 = KeyCheck(key4, choose4, 0, (quizzes.size() - 1));
-					}
-					else if (key4 == 13)
-					{
-						if (quizzes.at(choose4) == " ->~  Exit  ~<- (not quiz) ")
-							break;
-
-						shared_ptr<Quiz> playingQuiz(new Quiz(quizzes.at(choose4)));
-						playingQuiz->ReadAllQuestions();
-
-						Play(playingQuiz);
-						break;
-					}
-
-				}
-			}
-			else if (choose2 == 1)
-			{
-				PlayerDatabase* playerDB = new PlayerDatabase(Folder + Players);
-
-				playerDB->ReadAllPlayers();
-
-				list<Player*> players = playerDB->Get_Players();
-
-				system("cls"); cout << endl << endl;
-				for (auto player : players)
-				{
-					if (player->Get_Username() == gUserName)
-					{
-						player->Show(false, true);
-					}
-				}
-
-				SetColor(11);
-				cout << "\n\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
-				SetColor(dft); cin.get();
-
-				if (playerDB != nullptr) { delete playerDB; playerDB = nullptr; }
-			}
-			else if (choose2 == 2)
-			{
-				LoadingScreen("Updating", 45, 2);
-
-				int key8, choose8 = 0;
-				string quizName = " ->~ Exit ~<- (not quiz) ";
-				vector<string> show_quizzes{ quizName };
-
-				GetQuizNamesFromDB(string(Folder + QuizNames), show_quizzes);
-
-				while (true)
-				{
-					system("cls");
-
-					printf("\n\t\tSelect Quiz For Show Special Leader Board.\n\n");
-
-					ShowMenu_v(choose8, show_quizzes);
-
-					key8 = _getch();
-					if (key8 > 96)
-					{
-						if (key8 == 224) key8 = _getch();
-						choose8 = KeyCheck(key8, choose8, 0, (show_quizzes.size() - 1));
-					}
-					else if (key8 == 13)
-					{
-						if (show_quizzes.at(choose8) == " ->~ Exit ~<- (not quiz) ")
-							break;
-
-						quizName = show_quizzes.at(choose8);
-						break;
-					}
-				}
-
-				PlayerDatabase* plDb = new PlayerDatabase(Folder + Players);
-				plDb->ReadAllPlayers();
-
-				list<Player*> players = plDb->Get_Players();
-
-				players.sort(ComparePlayersBySuccessRate);
-
-				system("cls"); cout << endl << endl;
-
-				int END = 1, s_index = 1;
-				for (auto P : players)
-				{
-					if (END == 10)
-						break;
-					if (P != nullptr && (P->Get_PlayedQuizName() == quizName))
-					{
-						SetColor(11); cout << "\n" << (s_index++) << " --> ";
-						P->Show(true, false);
-					}
-
-					END++;
-				}
-
-				SetColor(11);
-				cout << "\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
-				SetColor(dft); cin.get();
-
-				if (plDb != nullptr) { delete plDb; plDb = nullptr; }
-			}
-			else if (choose2 == 3)
+			else if (menuForMain[choose2] == " Exit ")
 			{
 				break;
 			}
@@ -554,10 +403,10 @@ string Login_Menu()
 				{
 					string un, ps;// username, password
 
-					SetConsoleTextAttribute(h, 6);
+					SetColor(6);
 					cout << "\n\t\tUsername Daxil Edin : "; getline(cin, un);
 					cout << "\n\t\tPassword Daxil Edin : "; getline(cin, ps);
-					SetConsoleTextAttribute(h, dft);
+					SetColor(dft);
 
 					if (appUserDB->Check_User(un, ps))
 					{
@@ -566,7 +415,7 @@ string Login_Menu()
 					}
 					else
 					{
-						throw DatabaseException("\nUsername ya da Password Yanlish Daxil Edilib.",
+						throw Exception("\nUsername ya da Password Yanlish Daxil Edilib.",
 							GetTime(), __FILE__, __LINE__);
 					}
 				}
@@ -574,17 +423,17 @@ string Login_Menu()
 				{
 					string lvl, n, sn, un, ps;// level, name, surname, username, password
 
-					SetConsoleTextAttribute(h, 6);
+					SetColor(6);
 					cout << "\n\t\t\tSeviyye : Admin = a | Guest = g\n\n\t\tSeviyye Sechin : "; getline(cin, lvl);
 					cout << "\n\t\tAdinizi Daxil Edin : "; getline(cin, n);
 					cout << "\n\t\tSoyadinizi Daxil Edin : "; getline(cin, sn);
 					cout << "\n\t\tUsername Daxil Edin : "; getline(cin, un);
 					cout << "\n\t\tPassword Daxil Edin : "; getline(cin, ps);
-					SetConsoleTextAttribute(h, dft);
+					SetColor(dft);
 
 					if (appUserDB->Check_User(un))
 					{
-						throw DatabaseException("\nBu Username-li Isdifadechi Var. Basqa Username Daxil Edin.",
+						throw Exception("\nBu Username-li Isdifadechi Var. Basqa Username Daxil Edin.",
 							GetTime(), __FILE__, __LINE__);
 					}
 					else
@@ -596,9 +445,9 @@ string Login_Menu()
 						appUserDB->WriteEndUser();
 
 						LoadingScreen("User Adding", 40, 10);
-						SetConsoleTextAttribute(h, 12);
+						SetColor(12);
 						cout << "\n\tUser Elave Olundu.\n\n"; system("pause");
-						SetConsoleTextAttribute(h, dft);
+						SetColor(dft);
 					}
 				}
 				else if (choose1 == 2) // Exit
@@ -609,10 +458,9 @@ string Login_Menu()
 			}
 			catch (exception& ex)
 			{
-				SetConsoleTextAttribute(h, 4);
-				cout << endl << boolalpha << ex.what() << endl;
-				cout << endl << boolalpha;
-				SetConsoleTextAttribute(h, dft);
+				SetColor(4);
+				cout << endl << ex.what() << endl;
+				SetColor(dft);
 				system("pause");
 			}
 		}

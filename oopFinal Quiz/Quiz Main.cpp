@@ -25,9 +25,9 @@ string Players = "Players.txt";
 /*--------------------------------------------------*/
 
 
-/*-------------------------*/
+/*--------------------------------------------------*/
 string gUserName = ""; // for Save player to file.
-/*-------------------------*/  
+/*--------------------------------------------------*/  
 
 /*******  Application Headers  ********/
 
@@ -55,10 +55,8 @@ void main()
 		}
 		catch (exception& except)
 		{
-			SetColor(4);
-			cout << except.what();
-			SetColor(dft);
-			system("pause");
+			SetColor(4); cout << except.what();
+			SetColor(dft); system("pause");
 		}
 		//------------------------------------------------------
 		try
@@ -77,12 +75,15 @@ void main()
 				break;
 			}
 		}
+		catch (Exception& except)
+		{
+			SetColor(4); cout << except.Get_Message();
+			SetColor(dft); system("pause");
+		}
 		catch (exception& except)
 		{
-			SetColor(4);
-			cout << except.what();
-			SetColor(dft);
-			system("pause");
+			SetColor(4); cout << except.what();
+			SetColor(dft); system("pause");
 		}
 	}
 }
