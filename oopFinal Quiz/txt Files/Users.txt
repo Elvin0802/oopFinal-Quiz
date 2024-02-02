@@ -2,3 +2,6 @@
 2.^Cavid^Atamoghlanov^cvd123^cvd1234^__admin__
 3.^kamal^Veliyev^kamal1^kamal2^__guest__
 4.^Yusif^Huseynli^admin1^admin1^__admin__
+5.^Elcan^Qasimov^qaz^qazx^__admin__
+6.^local^global^loc^glo^__admin__
+7.^Jamal^Masaalli^cde^cder^__guest__

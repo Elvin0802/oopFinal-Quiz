@@ -43,7 +43,7 @@ string gUserName = ""; // for Save player to file.
 
 void main()
 {
-	LoadingScreen("Loading",50);
+	LoadingScreen("Loading",30);
 
 	while (true)
 	{
@@ -65,15 +65,15 @@ void main()
 		{
 			if (Level == "__admin__")
 			{
-				Admin_Menu();
+				Main_Menu(true);
 			}
 			else if (Level == "__guest__")
 			{
-				Guest_Menu();
+				Main_Menu(false);
 			}
 			else if (Level == "__break__")
 			{
-				LoadingScreen("Exiting", 35);
+				LoadingScreen("Exiting", 30);
 				break;
 			}
 		}

@@ -129,10 +129,10 @@ void LoadingScreen(string text,size_t millisecond = 100, int color = 6)
 	SetConsoleCP(437); SetConsoleOutputCP(437);
 	int block1 = 177, block2 = 219;
 
-	cout << "\n\n\n\n\n\n\t\t\t\t\t" << text << ".....";
+	cout << "\n\n\n\n\n\n\t\t\t\t\t" << text << "...";
 	cout << "\n\n\t\t\t\t";
 
-	for (size_t i = 0; i < 32; i++)
+	for (size_t i = 0; i < 30; i++)
 	{
 		cout << ((char)block1);
 	}

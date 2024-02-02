@@ -413,7 +413,9 @@ public:
 
 		if (this->_successRate != nullptr) delete this->_successRate;
 
-		this->_successRate = new double((*_correctCount / *_totalCount) * 100);
+		double rate = ((double(*_correctCount) / double(*_totalCount)) * double(100.0));
+
+		this->_successRate = new double(rate);
 	}
 	void Set_Username(string username)
 	{
@@ -442,18 +444,18 @@ public:
 	string Get_Username() const { return *_username; }
 	string Get_PlayedQuizName() const { return *_playedQuiz; }
 
-	void Show(bool show_name) const
+	void Show(bool show_name,bool show_quiz_name) const
 	{
-		SetColor(12); cout << endl;
+		SetColor(12);
 
-		if (show_name) cout << "\nUsername : " << *_username << " | \n\n";
+		if (show_name) cout << " Username : " << *_username << "\n";
+		if (show_quiz_name) cout << " Played Quiz Name : " << *_playedQuiz << "\n";
 
-		cout << "Played Quiz Name : " << *_playedQuiz << " | \n\n";
-		cout << "Total Answer Count : " << *_totalCount << " | \n";
-		cout << "Correct Count : " << *_correctCount << " | \n";
-		cout << "Wrong Count : " << *_wrongCount << " | \n";
-		cout << "Empty Count : " << *_emptyCount << " | \n";
-		cout << "Success Rate : " << *_successRate << endl << endl;
+		cout << "\t\tTotal : " << *_totalCount << " | ";
+		cout << "Correct : " << *_correctCount << " | ";
+		cout << "Wrong : " << *_wrongCount << " | ";
+		cout << "Empty : " << *_emptyCount << " | ";
+		cout << "Success : " << *_successRate << " % " << endl << endl;
 		SetColor(dft);
 	}
 
