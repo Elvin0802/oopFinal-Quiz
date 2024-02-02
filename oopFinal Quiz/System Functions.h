@@ -104,7 +104,7 @@ void ShowMenu_v(int Choose, const vector<string>& Vector, int _ignore = -1)
 {
 	size_t end = Vector.size();
 
-	cout << endl << endl;
+	cout << "\n\n\n";
 	for (size_t sl = 0; sl < end; sl++)
 	{
 		if (sl == _ignore)
@@ -113,11 +113,11 @@ void ShowMenu_v(int Choose, const vector<string>& Vector, int _ignore = -1)
 		if (Choose == sl)
 		{
 			SetColor(3);
-			cout << "\n\t\t" << Vector[sl] << endl;
+			cout << "\n\t\t\t\t" << Vector[sl] << endl;
 			SetColor(dft);
 		}
 		else
-			cout << "\n\t\t" << Vector[sl] << endl;
+			cout << "\n\t\t\t\t" << Vector[sl] << endl;
 	}
 }
 
@@ -133,17 +133,22 @@ void LoadingScreen(string text,size_t millisecond = 100, int color = 6)
 	cout << "\n\n\t\t\t\t";
 
 	for (size_t i = 0; i < 30; i++)
-	{
 		cout << ((char)block1);
-	}
-	cout << "\r";
-	cout << "\t\t\t\t";
-	for (size_t i = 0; i < 32; i++)
+	
+	cout << "\r"; cout << "\t\t\t\t";
+
+	for (size_t i = 0; i < 30; i++)
 	{
-		cout << ((char)block2);
-		Sleep(millisecond);
+		cout << ((char)block2); Sleep(millisecond);
 	}
 
-	SetConsoleCP(0);
-	SetConsoleOutputCP(0); SetColor(dft);
+	SetConsoleCP(0); SetConsoleOutputCP(0); SetColor(dft);
+}
+
+void Pause()
+{
+	SetColor(11);
+	cout << "\n\n\n\tDavam Etmek Uchun -> Enter <- Basin.\n\n";
+	SetColor(dft); 
+	cin.get();
 }

@@ -3,3 +3,7 @@
 --> Label
 --> Damla
 --> sualca
+--> Lambda
+--> yerturk
+--> qwerp
+--> Yarpaq

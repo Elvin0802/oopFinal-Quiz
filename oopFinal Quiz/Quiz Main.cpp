@@ -2,12 +2,12 @@
 #include <Windows.h>
 #include <vector>
 #include <list>
+#include <random>
 #include <string>
 #include <fstream>
 #include <algorithm>
 #include <conio.h>
 #include <memory>
-#include <random>
 
 using namespace std;
 /*-----------------------------------------------------------------------*/
@@ -43,7 +43,7 @@ string gUserName = ""; // for Save player to file.
 
 void main()
 {
-	LoadingScreen("Loading",30);
+	LoadingScreen("Loading",50);
 
 	while (true)
 	{
@@ -56,7 +56,7 @@ void main()
 		catch (exception& except)
 		{
 			SetColor(4); cout << except.what();
-			SetColor(dft); system("pause");
+			SetColor(dft); Pause();
 		}
 		//------------------------------------------------------
 		try
@@ -71,19 +71,19 @@ void main()
 			}
 			else if (Level == "__break__")
 			{
-				LoadingScreen("Exiting", 30);
+				LoadingScreen("Exiting", 35);
 				break;
 			}
 		}
 		catch (Exception& except)
 		{
 			SetColor(4); cout << except.Get_Message();
-			SetColor(dft); system("pause");
+			SetColor(dft); Pause();
 		}
 		catch (exception& except)
 		{
 			SetColor(4); cout << except.what();
-			SetColor(dft); system("pause");
+			SetColor(dft); Pause();
 		}
 	}
 }

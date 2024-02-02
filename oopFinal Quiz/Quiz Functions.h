@@ -57,6 +57,8 @@ bool ComparePlayersBySuccessRate(const Player* first, const Player* second)
 }
 
 
+
+
 // Shuffle with random engine ( only work with Collection )
 //template<typename T>
 //void Shuffle(T Collection)

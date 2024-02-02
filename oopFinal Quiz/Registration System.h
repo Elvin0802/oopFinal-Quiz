@@ -3,9 +3,12 @@
 
 void Play(shared_ptr<Quiz> quiz)
 {
+	srand(time(NULL));
 	list<Question*>* suallar = (*quiz).Get_Questions();
-	//Shuffle(suallar);
-	//shuffle(suallar->begin(), suallar->end(),default_random_engine(random_device()()));
+	// Shuffle(suallar);
+	// shuffle(suallar->begin(), suallar->end(),default_random_engine(random_device()()));
+	
+	random_shuffle(suallar->begin(), suallar->end());
 
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
@@ -24,14 +27,12 @@ void Play(shared_ptr<Quiz> quiz)
 	{
 		system("cls"); SetColor(14);
 
-		cout << "\n\n\t\t~~~~  Sual  > " << (q_index + 1) << " < \n";
+		cout << "\n\n\n\t\t\t\t~~~~  Sual  > " << (q_index + 1) << " < \n";
 		SetColor(10);
 
 		sual = GetQuestionByIndex(suallar, q_index);
 
-		//if (sual == nullptr && q_index < suallar->size()) { q_index++; continue; }
-
-		cout << "\n\t\t" << sual->Get_Question() << endl; SetColor(dft);
+		cout << "\n\t\t\t" << sual->Get_Question() << endl; SetColor(dft);
 
 		if (q_index == 0) ignoreIndex = 2;
 		else if (q_index == (q_count - 1)) ignoreIndex = 1;
@@ -130,9 +131,7 @@ void Play(shared_ptr<Quiz> quiz)
 				if (PlDb != nullptr) { delete PlDb; PlDb = nullptr; }
 				DeleteAllItemsInList(suallar);
 
-				SetColor(11);
-				cout << "\n\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
-				SetColor(dft); cin.get();
+				Pause();
 
 				return;
 			}
@@ -231,7 +230,7 @@ void Main_Menu(bool isAdmin)
 							catch(Exception& ex)
 							{
 								SetColor(4); cout << endl << ex.Get_Message() << endl;
-								SetColor(dft); system("pause");
+								SetColor(dft); Pause();
 							}
 
 							if(answers != nullptr)
@@ -248,7 +247,7 @@ void Main_Menu(bool isAdmin)
 						{
 							newQuiz->WriteAllQuestions();
 							SaveQuizNameToDB(string(Folder + QuizNames), *(newQuiz->Get_QuizName()));
-							LoadingScreen("Creating", 40, 3);
+							LoadingScreen("Creating", 30, 3);
 
 							break;
 						}
@@ -262,7 +261,7 @@ void Main_Menu(bool isAdmin)
 
 				GetQuizNamesFromDB(string(Folder + QuizNames), quizzes);
 
-				LoadingScreen("Starting", 35, 3);
+				LoadingScreen("Starting", 30, 3);
 
 				while (true)
 				{
@@ -309,15 +308,13 @@ void Main_Menu(bool isAdmin)
 					}
 				}
 
-				SetColor(11);
-				cout << "\n\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
-				SetColor(dft); cin.get();
+				Pause();
 
 				if (playerDB != nullptr) { delete playerDB; playerDB = nullptr; }
 			}
 			else if (menuForMain[choose2] == " Leaders Board ")
 			{
-				LoadingScreen("Updating", 45, 2);
+				LoadingScreen("Updating", 30, 2);
 
 				int key8, choose8 = 0;
 				string quizName = " ->~ Exit ~<- (not quiz) ";
@@ -457,9 +454,9 @@ string Login_Menu()
 
 						appUserDB->WriteEndUser();
 
-						LoadingScreen("User Adding", 40, 10);
+						LoadingScreen("User Adding", 30, 10);
 						SetColor(12);
-						cout << "\n\tUser Elave Olundu.\n\n"; system("pause");
+						cout << "\n\tUser Elave Olundu.\n\n"; Pause();
 						SetColor(dft);
 					}
 				}
@@ -474,7 +471,7 @@ string Login_Menu()
 				SetColor(4);
 				cout << endl << ex.what() << endl;
 				SetColor(dft);
-				system("pause");
+				Pause();
 			}
 		}
 	}
