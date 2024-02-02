@@ -8,7 +8,7 @@ void Play(shared_ptr<Quiz> quiz)
 	// Shuffle(suallar);
 	// shuffle(suallar->begin(), suallar->end(),default_random_engine(random_device()()));
 	
-	random_shuffle(suallar->begin(), suallar->end());
+	//random_shuffle(suallar->begin(), suallar->end());
 
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
