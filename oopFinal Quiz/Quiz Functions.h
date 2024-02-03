@@ -84,3 +84,18 @@ void _shuffle(vector<string>& _vector)
 		iter_swap(i, next(_vector.begin(), j));
 	}
 }
+
+// unique the vector.
+void Unique(vector<string>& _vector)
+{
+	try 
+	{
+		sort(_vector.begin(), _vector.end());
+		auto start = unique(_vector.begin(), _vector.end());
+		_vector.erase(start, _vector.end());
+	}
+	catch (...)
+	{
+		cout << "\n\nUNIQUE ERROR\n\n"; system("pause");
+	}
+}

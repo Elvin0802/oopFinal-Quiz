@@ -8,14 +8,14 @@ void Play(shared_ptr<Quiz> quiz)
 
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
-	FillWithEmpty(cavablar, suallar->size()); // sual sayi qeder ' bosh ' doldurur
+	FillWithEmpty(cavablar, suallar->size()); // sual sayi qeder ' bosh ' doldurur.
 
 	int key5, choose5 = 0;  // for show menu
 	size_t q_index = 0; //for show question 
 	size_t q_count = suallar->size();  // for update index
-	// bool isChangeNext = true, isChangePrev = true;
+	bool isChangeNext = true, isChangePrev = true;
 
-	vector<string> menuForPlay{ " To Answer ", " Next ", " Previous ", " Submit " };
+	vector<string> menuForPlay{ " To Answer ", " Submit ", " Next ", " Previous " };
 
 	Question* sual = nullptr;
 
@@ -28,21 +28,21 @@ void Play(shared_ptr<Quiz> quiz)
 
 		sual = GetQuestionByIndex(suallar, q_index);
 
-		cout << "\n\t\t\t" << sual->Get_Question() << endl; SetColor(dft);
+		cout << "\n\t\t\t" << sual->Get_Question() << endl; 
+		SetColor(dft);
 
-	/*
-	if (q_index == 0 && isChangeNext)
+		if (q_index == 0 && isChangePrev)
 		{
-			menuForPlay[2] = menuForPlay[3];
 			menuForPlay.pop_back();
+			isChangePrev = false;
 		}
-		else if (q_index == (q_count - 1))
+		else if (q_index == (q_count - 1) && isChangeNext)
 		{
-			menuForPlay[1] = menuForPlay[2];
-			menuForPlay[2] = menuForPlay[3];
 			menuForPlay.pop_back();
+			menuForPlay.pop_back();
+			menuForPlay.push_back(" Previous ");
+			isChangeNext = false;
 		}
-		*/
 
 		ShowMenu_v(choose5, menuForPlay);
 
@@ -94,10 +94,24 @@ void Play(shared_ptr<Quiz> quiz)
 			}
 			else if (menuForPlay[choose5] == " Next ")
 			{
+				if (q_index == 0)
+				{
+					menuForPlay.push_back(" Previous ");
+					isChangePrev = true;
+				}
+
 				if (q_index < (q_count - 1)) q_index++;
 			}
 			else if (menuForPlay[choose5] == " Previous ")
 			{
+				if (q_index == (q_count - 1))
+				{
+					menuForPlay.pop_back();
+					menuForPlay.push_back(" Next ");
+					menuForPlay.push_back(" Previous ");
+					isChangeNext = true;
+				}
+
 				if (q_index > 0) q_index--;
 			}
 			else if (menuForPlay[choose5] == " Submit ")
@@ -265,7 +279,8 @@ void Main_Menu(bool isAdmin)
 				vector<string> quizzes{ " ->~  Exit  ~<- (not quiz) " };
 
 				GetQuizNamesFromDB(string(Folder + QuizNames), quizzes);
-
+				Unique(quizzes);
+			
 				LoadingScreen("Starting", 30, 3);
 
 				while (true)
@@ -326,12 +341,13 @@ void Main_Menu(bool isAdmin)
 				vector<string> show_quizzes{ quizName };
 
 				GetQuizNamesFromDB(string(Folder + QuizNames), show_quizzes);
+				Unique(show_quizzes);
 
 				while (true)
 				{
 					system("cls");
 
-					printf("\n\t\tSelect Quiz For Show Special Leader Board.\n\n");
+					printf("\n\n\t\tSelect Quiz For Show Special Leader Board.\n\n");
 
 					ShowMenu_v(choose8, show_quizzes);
 
@@ -360,23 +376,17 @@ void Main_Menu(bool isAdmin)
 
 				system("cls"); cout << endl << endl;
 
-				int END = 1, s_index = 1;
+				int s_index = 1;
 				for (auto P : players)
 				{
-					if (END == 10)
-						break;
 					if (P != nullptr && (P->Get_PlayedQuizName() == quizName))
 					{
-						SetColor(11); cout << "\n" << (s_index++) << " --> ";
+						if (s_index == 10) break;
+						SetColor(2); cout << "\n" << (s_index++) << " --> ";
 						P->Show(true, false);
 					}
-
-					END++;
 				}
-
-				SetColor(11);
-				cout << "\n\n\tDavam Etmek Uchun Her Hansi Duymeye Basin.\n\n";
-				SetColor(dft); cin.get();
+				Pause();
 
 				if (plDb != nullptr) { delete plDb; plDb = nullptr; }
 			}
@@ -386,7 +396,6 @@ void Main_Menu(bool isAdmin)
 			}
 		}
 	}
-
 }
 
 
@@ -461,8 +470,8 @@ string Login_Menu()
 
 						LoadingScreen("User Adding", 30, 10);
 						SetColor(12);
-						cout << "\n\tUser Elave Olundu.\n\n"; Pause();
-						SetColor(dft);
+						cout << "\n\tUser Elave Olundu.\n\n";
+						Pause();
 					}
 				}
 				else if (choose1 == 2) // Exit
@@ -475,7 +484,6 @@ string Login_Menu()
 			{
 				SetColor(4);
 				cout << endl << ex.what() << endl;
-				SetColor(dft);
 				Pause();
 			}
 		}

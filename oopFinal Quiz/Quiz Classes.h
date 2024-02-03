@@ -16,8 +16,7 @@ public:
 		this->Set_FileName(string(QuizName + txt));
 	}
 	Quiz(const Quiz& quiz)
-		: Quiz(*(quiz._quizName))
-	{}
+		: Quiz(*(quiz._quizName)) {}
 
 	Quiz& operator=(const Quiz& quiz)
 	{
@@ -78,15 +77,13 @@ public:
 		ifstream file(*_fileName, ios::in);
 
 		if (!file.is_open())
-		{
-			throw Exception("\nFile Achilmadi.",
-				GetTime(), __FILE__, __LINE__);
-		}
+			throw Exception("\nFile Achilmadi.", GetTime(), __FILE__, __LINE__);
 
 		string index = "";
 		string question = "";
 		string a1 = "", a2 = "", a3 = "", a4 = "";
 		string correctA = "";
+		Answers* answers = nullptr;
 
 		this->DeleteAllQuestions();
 
@@ -103,10 +100,14 @@ public:
 				getline(file, a4,'>');
 				getline(file, correctA);
 
-				Answers* answers = new Answers(a1, a2, a3, a4, correctA);
+				answers = new Answers(a1, a2, a3, a4, correctA);
 
 				_questions->push_back(new Question(question, answers));
-				delete answers;
+				
+				if(answers != nullptr)
+				{
+					delete answers; answers = nullptr;
+				}
 			}
 		}
 		file.close();

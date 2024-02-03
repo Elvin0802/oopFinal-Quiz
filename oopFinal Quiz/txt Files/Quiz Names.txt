@@ -9,3 +9,5 @@
 --> Yarpaq
 --> Lada
 --> Quiz-1.0
+--> earth
+--> PortalMArket

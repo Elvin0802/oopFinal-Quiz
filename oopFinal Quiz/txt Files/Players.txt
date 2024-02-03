@@ -7,3 +7,7 @@
 7.|admin|sualca|11.1111|9|1|0|8
 8.|admin|Lada|100|4|4|0|0
 9.|admin|Lada|100|4|4|0|0
+10.|admin|Lada|50|4|2|0|2
+11.|admin|Lada|0|4|0|4|0
+12.|admin1|Lada|75|4|3|1|0
+13.|12345|Lada|0|4|0|1|3

@@ -77,13 +77,11 @@ void main()
 		}
 		catch (Exception& except)
 		{
-			SetColor(4); cout << except.Get_Message();
-			SetColor(dft); Pause();
+			SetColor(4); cout << except.Get_Message(); Pause();
 		}
 		catch (exception& except)
 		{
-			SetColor(4); cout << except.what();
-			SetColor(dft); Pause();
+			SetColor(4); cout << except.what(); Pause();
 		}
 	}
 }

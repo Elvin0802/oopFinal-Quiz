@@ -4,12 +4,20 @@
 // Get Current Time in Text (string).
 string GetTime()
 {
-	time_t now;
-	time(&now);
+	char* dt = nullptr;
+	try
+	{
+		time_t now;
+		time(&now);
 
-	char* dt = new char[26];
+		dt = new char[26];
 
-	ctime_s(dt, 26, &now);
+		ctime_s(dt, 26, &now);
+	}
+	catch (exception& ex)
+	{
+		system("cls"); cout << ex.what() << endl; system("pause");
+	}
 
 	return string(dt);
 }
@@ -49,7 +57,6 @@ int KeyCheck(int key, int choice, int min, int max)
 		choice--;
 		if (choice < min) choice = max;
 	}
-
 	return choice;
 }
 
@@ -65,9 +72,7 @@ void SaveQuizNameToDB(string dbName, string qName)
 	ofstream file(dbName, ios::app);
 
 	if (!file.is_open() || !file)
-	{
 		throw Exception("\nFile Achilmadi.", GetTime(), __FILE__, __LINE__);
-	}
 
 	file << "--> " << qName << endl;
 
@@ -80,10 +85,7 @@ void GetQuizNamesFromDB(string dbName, vector<string>& Vector)
 	ifstream file(dbName, ios::in);
 
 	if (!file.is_open())
-	{
-		throw Exception("\nFile Achilmadi.",
-			GetTime(), __FILE__, __LINE__);
-	}
+		throw Exception("\nFile Achilmadi.", GetTime(), __FILE__, __LINE__);
 
 	string index = "", q_name = "";
 
@@ -102,50 +104,72 @@ void GetQuizNamesFromDB(string dbName, vector<string>& Vector)
 // Show Vector Menu Elements with Colored Choose.
 void ShowMenu_v(int Choose, const vector<string>& Vector)
 {
-	size_t end = Vector.size();
-
-	cout << "\n\n\n";
-	for (size_t sl = 0; sl < end; sl++)
+	try
 	{
-		if (Choose == sl)
+		size_t end = Vector.size();
+
+		cout << "\n\n\n";
+		for (size_t sl = 0; sl < end; sl++)
 		{
-			SetColor(3);
-			cout << "\n\t\t\t\t" << Vector[sl] << endl;
-			SetColor(dft);
+			if (Choose == sl)
+			{
+				SetColor(3);
+				cout << "\n\t\t\t\t" << Vector[sl] << endl;
+				SetColor(dft);
+			}
+			else
+				cout << "\n\t\t\t\t" << Vector[sl] << endl;
 		}
-		else
-			cout << "\n\t\t\t\t" << Vector[sl] << endl;
+	}
+	catch (exception& ex)
+	{
+		system("cls"); cout << ex.what() << endl; system("pause");
 	}
 }
 
 // Show Animated Loading Screen According to the Parameters
-void LoadingScreen(string text,size_t millisecond = 100, int color = 6)
+void LoadingScreen(string text, size_t millisecond = 100, int color = 6)
 {
-	SetColor(color); system("cls");
-
-	SetConsoleCP(437); SetConsoleOutputCP(437);
-	int block1 = 177, block2 = 219;
-
-	cout << "\n\n\n\n\n\n\t\t\t\t\t" << text << "...";
-	cout << "\n\n\t\t\t\t";
-
-	for (size_t i = 0; i < 30; i++)
-		cout << ((char)block1);
-	
-	cout << "\r"; cout << "\t\t\t\t";
-
-	for (size_t i = 0; i < 30; i++)
+	try
 	{
-		cout << ((char)block2); Sleep(millisecond);
-	}
+		SetColor(color); system("cls");
 
-	SetConsoleCP(0); SetConsoleOutputCP(0); SetColor(dft);
+		SetConsoleCP(437); SetConsoleOutputCP(437);
+		int block1 = 177, block2 = 219;
+
+		cout << "\n\n\n\n\n\n\t\t\t\t\t" << text << "....";
+		cout << "\n\n\t\t\t\t";
+
+		for (size_t i = 0; i < 30; i++)
+			cout << ((char)block1);
+
+		cout << "\r"; cout << "\t\t\t\t";
+
+		for (size_t i = 0; i < 30; i++)
+		{
+			cout << ((char)block2);
+			Sleep(millisecond);
+		}
+
+		SetConsoleCP(0); SetConsoleOutputCP(0); SetColor(dft);
+	}
+	catch (exception& ex)
+	{
+		system("cls"); cout << ex.what() << endl; system("pause");
+	}
 }
 
 void Pause()
 {
-	SetColor(11);
-	cout << "\n\n\n\tDavam Etmek Uchun -> Enter <- Basin.\n\n";
-	SetColor(dft); 
-	cin.get();
+	try
+	{
+		SetColor(11);
+		cout << "\n\n\n\tDavam Etmek Uchun -> Enter <- Basin.\n\n";
+		SetColor(dft);
+		cin.get();
+	}
+	catch (exception& ex)
+	{
+		system("cls"); cout << ex.what() << endl; system("pause");
+	}
 }
