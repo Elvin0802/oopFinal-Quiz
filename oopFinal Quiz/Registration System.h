@@ -8,14 +8,16 @@ void Play(shared_ptr<Quiz> quiz)
 
 	vector<string> cavablar; // oyunchunun verdiyi cavablar burda saxlanacaq.
 
-	FillWithEmpty(cavablar, suallar->size()); // sual sayi qeder ' bosh ' doldurur.
-
 	int key5, choose5 = 0;  // for show menu
-	size_t q_index = 0; //for show question 
+	size_t q_index = 0; // for show question 
 	size_t q_count = suallar->size();  // for update index
-	bool isChangeNext = true, isChangePrev = true;
+	bool isChangeNext = true, isChangePrev = true, isEnter = ((q_count == 1) ? false : true); // for show next and prev 
+
+	FillWithEmpty(cavablar, q_count); // sual sayi qeder ' bosh ' doldurur.
 
 	vector<string> menuForPlay{ " To Answer ", " Submit ", " Next ", " Previous " };
+
+	if (!isEnter) { menuForPlay.pop_back(); menuForPlay.pop_back(); }
 
 	Question* sual = nullptr;
 
@@ -28,17 +30,18 @@ void Play(shared_ptr<Quiz> quiz)
 
 		sual = GetQuestionByIndex(suallar, q_index);
 
-		cout << "\n\t\t\t" << sual->Get_Question() << endl; 
+		cout << "\n\t\t\t" << sual->Get_Question() << endl;
 		SetColor(dft);
 
-		if (q_index == 0 && isChangePrev)
+		if (q_index == 0 && isChangePrev && isEnter)
 		{
 			menuForPlay.pop_back();
 			isChangePrev = false;
 		}
-		else if (q_index == (q_count - 1) && isChangeNext)
+		else if (q_index == (q_count - 1) && isChangeNext && isEnter)
 		{
-			menuForPlay.pop_back();
+			if (menuForPlay[1] == " Submit ") menuForPlay.pop_back();
+
 			menuForPlay.pop_back();
 			menuForPlay.push_back(" Previous ");
 			isChangeNext = false;
@@ -94,7 +97,7 @@ void Play(shared_ptr<Quiz> quiz)
 			}
 			else if (menuForPlay[choose5] == " Next ")
 			{
-				if (q_index == 0)
+				if (q_index == 0 && isEnter)
 				{
 					menuForPlay.push_back(" Previous ");
 					isChangePrev = true;
@@ -104,7 +107,7 @@ void Play(shared_ptr<Quiz> quiz)
 			}
 			else if (menuForPlay[choose5] == " Previous ")
 			{
-				if (q_index == (q_count - 1))
+				if (q_index == (q_count - 1) && isEnter)
 				{
 					menuForPlay.pop_back();
 					menuForPlay.push_back(" Next ");
@@ -151,7 +154,6 @@ void Play(shared_ptr<Quiz> quiz)
 				DeleteAllItemsInList(suallar);
 
 				Pause();
-
 				return;
 			}
 		}
@@ -280,14 +282,13 @@ void Main_Menu(bool isAdmin)
 
 				GetQuizNamesFromDB(string(Folder + QuizNames), quizzes);
 				Unique(quizzes);
-			
+
 				LoadingScreen("Starting", 30, 3);
 
 				while (true)
 				{
 					system("cls");
-
-					printf("\n\t\t\tSelect Quiz For Starting.\n\n");
+					printf("\n\t\t\tSelect Quiz For Starting.");
 
 					ShowMenu_v(choose4, quizzes);
 
@@ -308,7 +309,6 @@ void Main_Menu(bool isAdmin)
 						Play(playingQuiz);
 						break;
 					}
-
 				}
 			}
 			else if (menuForMain[choose2] == " Show My Score ")
@@ -327,7 +327,6 @@ void Main_Menu(bool isAdmin)
 						player->Show(false, true);
 					}
 				}
-
 				Pause();
 
 				if (playerDB != nullptr) { delete playerDB; playerDB = nullptr; }
@@ -346,8 +345,7 @@ void Main_Menu(bool isAdmin)
 				while (true)
 				{
 					system("cls");
-
-					printf("\n\n\t\tSelect Quiz For Show Special Leader Board.\n\n");
+					printf("\n\n\n\t\tSelect Quiz For Show Special Leader Board.");
 
 					ShowMenu_v(choose8, show_quizzes);
 
@@ -381,9 +379,9 @@ void Main_Menu(bool isAdmin)
 				{
 					if (P != nullptr && (P->Get_PlayedQuizName() == quizName))
 					{
-						if (s_index == 10) break;
 						SetColor(2); cout << "\n" << (s_index++) << " --> ";
 						P->Show(true, false);
+						if (s_index == 10) break;
 					}
 				}
 				Pause();
