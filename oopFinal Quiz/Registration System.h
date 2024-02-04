@@ -186,8 +186,8 @@ void Main_Menu(bool isAdmin)
 			{
 				string quiz_name;
 
-				SetColor(8);
-				cout << "\n\t >>>> Quiz Adini Daxil Edin : "; getline(cin, quiz_name);
+				SetColor(2);
+				cout << "\n\t\t >>>> Quiz Adini Daxil Edin : "; getline(cin, quiz_name);
 				SetColor(dft);
 
 				Quiz* newQuiz = new Quiz(quiz_name);
@@ -210,6 +210,8 @@ void Main_Menu(bool isAdmin)
 					{
 						if (choose3 == 0)
 						{
+						CreatingQuestion: // for goto
+
 							string question = "", answer1 = "", answer2 = "", answer3 = "", answer4 = "";
 							string correctAnswer = "";
 
@@ -219,10 +221,27 @@ void Main_Menu(bool isAdmin)
 
 							cout << "\n---  Suali Daxil Edin :: "; getline(cin, question);
 
+							if (count(question.begin(), question.end(), '>') > 0)
+							{
+								SetColor(4);
+								cout << "\n\t ' > ' simvolundan istifade etmek olmaz!\n\n"; Pause();
+								goto CreatingQuestion;
+							}
+
 							cout << "\n---  I Cavabi Daxil Edin :: "; getline(cin, answer1);
 							cout << "\n---  II Cavabi Daxil Edin :: "; getline(cin, answer2);
 							cout << "\n---  III Cavabi Daxil Edin :: "; getline(cin, answer3);
 							cout << "\n---  IV Cavabi Daxil Edin :: "; getline(cin, answer4);
+
+							if (count(answer1.begin(), answer1.end(), '>') > 0 ||
+								count(answer2.begin(), answer2.end(), '>') > 0 ||
+								count(answer3.begin(), answer3.end(), '>') > 0 ||
+								count(answer4.begin(), answer4.end(), '>') > 0)
+							{
+								SetColor(4);
+								cout << "\n\t ' > ' simvolundan istifade etmek olmaz!\n\n"; Pause();
+								goto CreatingQuestion;
+							}
 
 							do {
 								cout << "\n---  Duzgun Cavabi Sechin ( 1, 2, 3, 4. yazin ) :: "; getline(cin, correctAnswer);
