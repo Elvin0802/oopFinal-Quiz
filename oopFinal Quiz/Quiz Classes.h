@@ -93,18 +93,18 @@ public:
 
 			if (!file.eof())
 			{
-				getline(file, question,'>');
-				getline(file, a1,'>');
-				getline(file, a2,'>');
-				getline(file, a3,'>');
-				getline(file, a4,'>');
+				getline(file, question, '>');
+				getline(file, a1, '>');
+				getline(file, a2, '>');
+				getline(file, a3, '>');
+				getline(file, a4, '>');
 				getline(file, correctA);
 
 				answers = new Answers(a1, a2, a3, a4, correctA);
 
 				_questions->push_back(new Question(question, answers));
-				
-				if(answers != nullptr)
+
+				if (answers != nullptr)
 				{
 					delete answers; answers = nullptr;
 				}

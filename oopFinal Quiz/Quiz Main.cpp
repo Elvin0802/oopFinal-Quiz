@@ -27,7 +27,7 @@ string Players = "Players.txt";
 
 /*--------------------------------------------------*/
 string gUserName = ""; // for Save player to file.
-/*--------------------------------------------------*/  
+/*--------------------------------------------------*/
 
 /*******  Application Headers  ********/
 
@@ -43,7 +43,7 @@ string gUserName = ""; // for Save player to file.
 
 void main()
 {
-	LoadingScreen("Loading",50);
+	LoadingScreen("Loading", 35);
 
 	while (true)
 	{

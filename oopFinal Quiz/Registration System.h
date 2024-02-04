@@ -438,9 +438,9 @@ string Login_Menu()
 		{
 			try
 			{
-				if (choose1 == 0) // Sign In
+				if (menuForLogin[choose1] == " Sign In ") // Sign In
 				{
-					string un, ps;// username, password
+					string un, ps; // username, password
 
 					SetColor(6);
 					cout << "\n\t\tUsername Daxil Edin : "; getline(cin, un);
@@ -458,7 +458,7 @@ string Login_Menu()
 							GetTime(), __FILE__, __LINE__);
 					}
 				}
-				else if (choose1 == 1) // Sign Up
+				else if (menuForLogin[choose1] == " Sign Up ") // Sign Up
 				{
 					string lvl, n, sn, un, ps;// level, name, surname, username, password
 
@@ -489,7 +489,7 @@ string Login_Menu()
 						Pause();
 					}
 				}
-				else if (choose1 == 2) // Exit
+				else if (menuForLogin[choose1] == " Exit ") // Exit
 				{
 					appUserDB->WriteAllUsers();
 					return ("__break__");
