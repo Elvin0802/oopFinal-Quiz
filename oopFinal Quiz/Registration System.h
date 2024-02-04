@@ -61,9 +61,7 @@ void Play(shared_ptr<Quiz> quiz)
 			{
 				shared_ptr<Answers> A(sual->Get_Answers()); // hazirki sualin cavablari
 				vector<string> variantlar{ (*A).Get_Answer1(), (*A).Get_Answer2(),
-					(*A).Get_Answer3(), (*A).Get_Answer4() };
-
-				_shuffle(variantlar);
+					(*A).Get_Answer3(), (*A).Get_Answer4() }; // sualin variantlari
 
 				int key6, choose6 = 0;
 
@@ -381,7 +379,7 @@ void Main_Menu(bool isAdmin)
 					{
 						SetColor(2); cout << "\n" << (s_index++) << " --> ";
 						P->Show(true, false);
-						if (s_index == 10) break;
+						if (s_index == 11) break;
 					}
 				}
 				Pause();

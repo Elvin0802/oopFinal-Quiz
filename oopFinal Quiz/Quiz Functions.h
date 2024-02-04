@@ -70,20 +70,6 @@ void _shuffle(list<Question*>& _list)
 		iter_swap(i, next(_list.begin(), j));
 	}
 }
-// suffle list overloading.
-void _shuffle(vector<string>& _vector)
-{
-	random_device rd;
-	mt19937 rng(rd());
-
-	for (auto i = prev(_vector.end()); i != _vector.begin(); --i)
-	{
-		uniform_int_distribution<int> distribution(0,distance(_vector.begin(), i));
-		int j = distribution(rng);
-
-		iter_swap(i, next(_vector.begin(), j));
-	}
-}
 
 // unique the vector.
 void Unique(vector<string>& _vector)
