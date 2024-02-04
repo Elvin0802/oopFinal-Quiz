@@ -1,0 +1,9 @@
+1.>abstract class nedir?>obyekti silinmeyen class>obyekti yarana bilmeyen class>base class>derived class>obyekti yarana bilmeyen class
+2.>Destructo nedir?>object yaranan anda isleyen function>object silinen anda isleyen function>object cagirilan anda isleyen function>object copy olunanda isleyen functionn>object silinen anda isleyen function
+3.>use relation nedir?>a classi b nin fieldidir>a classi b nin methodunun parametridir>a classi b nin basesidir>a classi b nin derivedidir>a classi b nin methodunun parametridir
+4.>throw ne edir?>erroru tutur>erroru atan keyword>error olan yerde dayanir>erroru catch hisseye gonderir>erroru atan keyword
+5.>noexcept nedir?>compiler functionun icini errora gore yoxlamir>compiler functionun icini yoxlayir>erroru tutan keyword>erroru atan keyword>compiler functionun icini errora gore yoxlamir
+6.>public nedir?>access modifer>set method>get method>overloading>access modifer
+7.>try nedir?>erroru atan keyword>erroru tutan keyword>error yaradan keyword>classdir>erroru tutan keyword
+8.>classin Meberleri nelerdir?>butun fieldler>butun methodlar>access modifier>butun field ve methodlar>butun field ve methodlar
+9.>delegate of constructor nedir?>constructorun diger constructoru cagirmasi>objectin silinmesi>objectin yaranmasi>objectin move edilmesi>constructorun diger constructoru cagirmasi
